@@ -1,0 +1,1328 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الرئيسية — عشاق الدراسة</title>
+    <meta name="description" content="لوحة التحكم الرئيسية لمنصة عشاق الدراسة">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           إنجاز بلس — Design System (app.css)
+           A premium, unified design system for STMS MPA
+           ============================================================ */
+
+        /* ─── THEMES ─────────────────────────────────────────────── */
+        .theme-blue {
+            --primary: #3b82f6;
+            --primary-light: #60a5fa;
+            --primary-dark: #1e40af;
+            --accent-bg: rgba(59, 130, 246, 0.1);
+            --sidebar-bg: #dbeafe;
+            --sidebar-text: #0c2d6b;
+            --bg: #eff6ff;
+            --card-bg: #f0f9ff;
+            --text-main: #0c2d6b;
+            --text-muted: #3b82f6;
+            --border: #bfdbfe;
+            --shadow-sm: 0 2px 8px rgba(59, 130, 246, .08);
+            --shadow-md: 0 6px 24px rgba(59, 130, 246, .12);
+            --shadow-lg: 0 12px 45px rgba(59, 130, 246, .15);
+        }
+
+        .theme-purple {
+            --primary: #a78bfa;
+            --primary-light: #c4b5fd;
+            --primary-dark: #7e22ce;
+            --accent-bg: rgba(167, 139, 250, 0.1);
+            --sidebar-bg: #f3e8ff;
+            --sidebar-text: #5b21b6;
+            --bg: #faf5ff;
+            --card-bg: #fef3ff;
+            --text-main: #5b21b6;
+            --text-muted: #a78bfa;
+            --border: #e9d5ff;
+            --shadow-sm: 0 2px 8px rgba(167, 139, 250, .08);
+            --shadow-md: 0 6px 24px rgba(167, 139, 250, .12);
+            --shadow-lg: 0 12px 45px rgba(167, 139, 250, .15);
+        }
+
+        .theme-green {
+            --primary: #10b981;
+            --primary-light: #6ee7b7;
+            --primary-dark: #047857;
+            --accent-bg: rgba(16, 185, 129, 0.1);
+            --sidebar-bg: #d1fae5;
+            --sidebar-text: #064e3b;
+            --bg: #f0fdf4;
+            --card-bg: #f7fefc;
+            --text-main: #064e3b;
+            --text-muted: #10b981;
+            --border: #a7f3d0;
+            --shadow-sm: 0 2px 8px rgba(16, 185, 129, .08);
+            --shadow-md: 0 6px 24px rgba(16, 185, 129, .12);
+            --shadow-lg: 0 12px 45px rgba(16, 185, 129, .15);
+        }
+
+        .theme-dark {
+            --primary: #818cf8;
+            --primary-light: #a5b4fc;
+            --primary-dark: #4f46e5;
+            --accent-bg: rgba(129, 140, 248, 0.12);
+            --sidebar-bg: #111827;
+            --sidebar-text: #f3f4f6;
+            --bg: #1f2937;
+            --card-bg: #374151;
+            --text-main: #f3f4f6;
+            --text-muted: #d1d5db;
+            --border: #4b5563;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, .3);
+            --shadow-md: 0 6px 24px rgba(0, 0, 0, .4);
+            --shadow-lg: 0 12px 45px rgba(0, 0, 0, .55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            direction: rtl;
+            transition: background 0.35s, color 0.35s;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .app-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar-bg);
+            border-left: 2px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            z-index: 200;
+            transition: transform 0.3s cubic-bezier(.4, 0, .2, 1), box-shadow 0.3s;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, .12);
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px 18px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 1.6rem;
+        }
+
+        .logo-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.3px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 12px 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            color: var(--sidebar-text);
+            font-size: 0.98rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+            .nav-item i {
+                width: 20px;
+                text-align: center;
+                font-size: 1rem;
+                opacity: .7;
+                transition: opacity .2s;
+            }
+
+            .nav-item:hover {
+                background: var(--accent-bg);
+                color: var(--primary);
+            }
+
+                .nav-item:hover i {
+                    opacity: 1;
+                    color: var(--primary);
+                }
+
+            .nav-item.active {
+                background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+                color: #fff;
+                font-weight: 600;
+                box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 40%, transparent);
+            }
+
+                .nav-item.active i {
+                    opacity: 1;
+                    color: #fff;
+                }
+
+        .sidebar-footer {
+            padding: 16px 18px;
+            border-top: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-mini {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        .user-mini-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            border: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+            .user-mini-avatar img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .user-mini-info {
+            overflow: hidden;
+        }
+
+            .user-mini-info span {
+                font-size: .85rem;
+                font-weight: 600;
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .user-mini-info small {
+                font-size: .73rem;
+                color: var(--text-muted);
+            }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1rem;
+            padding: 6px 8px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+            .logout-btn:hover {
+                background: #fee2e2;
+                color: #ef4444;
+            }
+
+        .main-wrapper {
+            margin-right: 260px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .top-header {
+            background: var(--card-bg);
+            border-bottom: 2px solid var(--border);
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .page-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            padding: 4px 6px;
+            border-radius: 8px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .header-user span {
+                font-size: .9rem;
+                color: var(--text-muted);
+            }
+
+        .header-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            border: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            overflow: hidden;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 20px 24px;
+            overflow-y: auto;
+        }
+
+        .page {
+            animation: fadeIn 0.35s ease;
+        }
+
+        @@keyframes fadeIn {
+            from
+
+        {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            border: 2px solid var(--border);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+            .card:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-md);
+            }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: .95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+            transition: all 0.25s;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                filter: brightness(1.1);
+                box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+            }
+
+            .btn-primary:active {
+                transform: translateY(0);
+            }
+
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 26px;
+            border-radius: 30px;
+            font-size: .9rem;
+            z-index: 9999;
+            transition: transform .35s cubic-bezier(.175, .885, .32, 1.275);
+            white-space: nowrap;
+            pointer-events: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .2);
+        }
+
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .toast.success {
+                background: #16a34a;
+            }
+
+            .toast.error {
+                background: #dc2626;
+            }
+
+            .toast.info {
+                background: var(--primary);
+            }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            z-index: 150;
+            backdrop-filter: blur(3px);
+        }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+        /* Home Page Styles */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 60%, var(--primary-dark) 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+            border-radius: 22px;
+            padding: 32px 36px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        @@keyframes gradientShift {
+            0%
+
+        {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+
+        }
+
+        .welcome-text h2 {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .welcome-text p {
+            opacity: .85;
+            font-size: .95rem;
+        }
+
+        .welcome-emoji {
+            font-size: 4rem;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .2));
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 24px 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 2px solid var(--border);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+                box-shadow: var(--shadow-md);
+            }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+            .stat-icon.blue {
+                background: #e8f0fe;
+                color: #4e7bef;
+            }
+
+            .stat-icon.purple {
+                background: #f0eaff;
+                color: #7c50e0;
+            }
+
+            .stat-icon.green {
+                background: #e2f8ee;
+                color: #1db27a;
+            }
+
+            .stat-icon.gold {
+                background: #fef9e7;
+                color: #f59e0b;
+            }
+
+                .stat-icon.gold i {
+                    animation: pulse 2s infinite;
+                }
+
+        @@keyframes pulse {
+            0%, 100%
+
+        {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 6px rgba(245, 158, 11, .5));
+        }
+
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: .8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            display: block;
+        }
+
+        .home-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .home-section {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 26px;
+            border: 2px solid var(--border);
+            box-shadow: var(--shadow-md);
+        }
+
+            .home-section h3 {
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 18px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--text-main);
+            }
+
+        .empty-state {
+            text-align: center;
+            padding: 32px 16px;
+            color: var(--text-muted);
+            font-size: .9rem;
+        }
+
+        .task-item.mini {
+            padding: 10px 14px;
+            border-radius: 10px;
+            flex-wrap: nowrap;
+            gap: 10px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+            .task-item.mini span {
+                font-size: .88rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                flex: 1;
+            }
+
+        .task-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all .25s;
+        }
+
+            .task-check.done {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                border-color: #22c55e;
+                color: #fff;
+            }
+
+        .schedule-mini-item {
+            padding: 10px 12px;
+            background: var(--bg);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            border-right: 3px solid var(--primary);
+        }
+
+            .schedule-mini-item strong {
+                display: block;
+                font-size: .9rem;
+            }
+
+            .schedule-mini-item small {
+                color: var(--text-muted);
+                font-size: .78rem;
+            }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 18px;
+            background: var(--bg);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+
+            .leaderboard-item:hover {
+                transform: scale(1.02);
+                border-color: var(--primary-light);
+            }
+
+        .rank-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        .rank-1 {
+            background: #ffd70033;
+            color: #b8860b;
+            border: 2px solid #ffd700;
+        }
+
+        .rank-2 {
+            background: #c0c0c033;
+            color: #708090;
+            border: 2px solid #c0c0c0;
+        }
+
+        .rank-3 {
+            background: #cd7f3233;
+            color: #8b4513;
+            border: 2px solid #cd7f32;
+        }
+
+        .rank-other {
+            background: var(--border);
+            color: var(--text-muted);
+        }
+
+        .leader-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .leader-name {
+            flex: 1;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .leader-points {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .quick-actions {
+            margin-top: 24px;
+        }
+
+            .quick-actions h3 {
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 14px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+        .qa-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .qa-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 18px 12px;
+            border-radius: 14px;
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: .9rem;
+            transition: transform .2s, box-shadow .2s, border-color .2s;
+            cursor: pointer;
+        }
+
+            .qa-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+                border-color: var(--primary);
+            }
+
+            .qa-card i {
+                font-size: 1.4rem;
+                color: var(--primary);
+            }
+
+        @@media (max-width: 768px) {
+            .sidebar
+
+        {
+            transform: translateX(100%);
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+            box-shadow: -8px 0 40px rgba(0, 0, 0, .2);
+        }
+
+        .main-wrapper {
+            margin-right: 0;
+        }
+
+        .mobile-toggle {
+            display: flex;
+        }
+
+        .content-area {
+            padding: 18px 16px;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .home-sections {
+            grid-template-columns: 1fr;
+        }
+
+        .welcome-emoji {
+            font-size: 3rem;
+        }
+
+        }
+    </style>
+</head>
+
+<body class="theme-purple">
+    <div class="sidebar-overlay"></div>
+    <div class="app-wrapper">
+
+        <!-- ══════════ SIDEBAR ══════════ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">📚</span>
+                    <span class="logo-text">مَنصة أنجاز</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="Dashboard" class="nav-item active" data-page="home">
+                    <i class="fas fa-home"></i> <span>الرئيسية</span>
+                </a>
+                <a href="tasks.html" class="nav-item" data-page="tasks">
+                    <i class="fas fa-check-square"></i> <span>قائمة المهام</span>
+                </a>
+                <a href="StudentSchedule" class="nav-item" data-page="schedule">
+                    <i class="fas fa-calendar-alt"></i> <span>المخطط الأسبوعي</span>
+                </a>
+                <a href="subjects.html" class="nav-item" data-page="subjects">
+                    <i class="fas fa-book"></i> <span>المواد الدراسية</span>
+                </a>
+                <a href="chat.html" class="nav-item" data-page="chat">
+                    <i class="fas fa-comments"></i> <span>ركن الدردشة</span>
+                </a>
+                <a href="profile.html" class="nav-item" data-page="profile">
+                    <i class="fas fa-user-circle"></i> <span>ملفي الشخصي</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-mini">
+                    <div class="user-mini-avatar" id="sidebar-avatar">👤</div>
+                    <div class="user-mini-info">
+                        <span id="sidebar-name">المستخدم</span>
+                        <small id="sidebar-role">طالب</small>
+                    </div>
+                </div>
+                <button class="logout-btn" id="logout-btn" title="تسجيل الخروج">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ══════════ MAIN ══════════ -->
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-toggle" id="mobile-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title" id="page-title">الرئيسية</h1>
+                </div>
+                <div class="header-right">
+                    <div class="header-user">
+                        <span id="header-name">مرحباً!</span>
+                        <div class="header-avatar" id="header-avatar">👤</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <div class="page active" id="page-home">
+
+                    <!-- بانر الترحيب -->
+                    <div class="welcome-banner">
+                        <div class="welcome-text">
+                            <h2>أهلاً وسهلاً، <span id="home-username">طالب</span>! 🎉</h2>
+                            <p>استعد لتحقيق أهدافك الدراسية اليوم</p>
+                            <!-- شارة الدور -->
+                            <span id="role-badge" class="role-badge-big"></span>
+                        </div>
+                        <div class="welcome-emoji">📚</div>
+                    </div>
+
+                    <!-- إحصائيات -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue"><i class="fas fa-check-double"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="total-tasks-done">0</span>
+                                <span class="stat-label">مهام منجزة</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon purple"><i class="fas fa-clock"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="pending-tasks">0</span>
+                                <span class="stat-label">مهام معلقة</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="fas fa-book-open"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-number">4</span>
+                                <span class="stat-label">مواد دراسية</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon gold"><i class="fas fa-star"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="points-display">0</span>
+                                <span class="stat-label">نقطة ذهبية</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- أقسام الرئيسية -->
+                    <div class="home-sections" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                        <!-- قسم الطالب: أحدث المهام -->
+                        <div class="home-section student-only">
+                            <h3><i class="fas fa-bolt"></i> أحدث المهام</h3>
+                            <div id="recent-tasks-list">
+                                <p class="empty-state">لا توجد مهام حتى الآن. أضف مهمتك الأولى! ✨</p>
+                            </div>
+                        </div>
+
+                        <!-- قسم الدكتور: المحاضرات المرفوعة -->
+                        <div class="home-section doctor-only" style="display:none;">
+                            <h3><i class="fas fa-video"></i> المحاضرات المرفوعة</h3>
+                            <div id="lectures-list">
+                                <p class="empty-state">لم ترفع أي محاضرات بعد. ابدأ الآن! 🎥</p>
+                            </div>
+                        </div>
+
+                        <!-- قسم الجدول -->
+                        <div class="home-section">
+                            <h3><i class="fas fa-calendar-day"></i> جدول اليوم</h3>
+                            <div id="today-schedule">
+                                <p class="empty-state">لا يوجد جدول لليوم. أضف محاضراتك! 📅</p>
+                            </div>
+                        </div>
+
+                        <!-- قسم الدكتور: الطلاب المسجلين -->
+                        <div class="home-section doctor-only" style="display:none;">
+                            <h3><i class="fas fa-users"></i> الطلاب المسجلين</h3>
+                            <div id="students-list" class="leaderboard-list">
+                                <p class="empty-state">لا توجد طلاب مسجلون بعد 👥</p>
+                            </div>
+                        </div>
+
+                        <!-- قسم لوحة المتصدرين / الإحصائيات -->
+                        <div class="home-section" id="leaderboard-section">
+                            <h3><i class="fas fa-medal"></i> لوحة المتصدرين</h3>
+                            <div id="leaderboard-list" class="leaderboard-list">
+                                <!-- سيتم تعبئتها برمجياً -->
+                            </div>
+                        </div>
+
+                        <!-- قسم الدكتور: إحصائيات الأداء -->
+                        <div class="home-section doctor-only" style="display:none;">
+                            <h3><i class="fas fa-chart-line"></i> إحصائيات الأداء</h3>
+                            <div id="performance-stats">
+                                <!-- إحصائيات الطلاب -->
+                                <div style="padding:12px; background:var(--bg); border-radius:10px; margin-bottom:10px;">
+                                    <strong style="display:block; margin-bottom:6px;">📊 نشاط الطلاب</strong>
+                                    <small style="color:var(--text-muted);">0 طالب نشط / 0 طالب إجمالي</small>
+                                </div>
+                                <div style="padding:12px; background:var(--bg); border-radius:10px;">
+                                    <strong style="display:block; margin-bottom:6px;">💬 الرسائل</strong>
+                                    <small style="color:var(--text-muted);">0 رسائل غير مقروءة</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- إجراءات سريعة حسب الدور -->
+                    <div class="quick-actions">
+                        <h3><i class="fas fa-bolt"></i> إجراءات سريعة</h3>
+                        <div class="qa-grid">
+                            <!-- مشترك -->
+                            <a href="tasks.html" class="qa-card student-only">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>إضافة مهمة</span>
+                            </a>
+                            <a href="schedule.html" class="qa-card">
+                                <i class="fas fa-calendar-plus"></i>
+                                <span>الجدول الأسبوعي</span>
+                            </a>
+                            <a href="subjects.html" class="qa-card">
+                                <i class="fas fa-book-open"></i>
+                                <span>المواد الدراسية</span>
+                            </a>
+                            <!-- دكتور / أدمن -->
+                            <a href="subjects.html" class="qa-card doctor-only" style="display:none;">
+                                <i class="fas fa-file-circle-plus"></i>
+                                <span>رفع محاضرة</span>
+                            </a>
+                            <a href="admin.html" class="qa-card admin-only"
+                               style="display:none;background:linear-gradient(135deg,#7c3aed,#a855f7);">
+                                <i class="fas fa-users-cog"></i>
+                                <span>إدارة المستخدمين</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <!-- ═══ HOME PAGE STANDALONE JS ═══ -->
+    <script src="auth-guard.js"></script>
+    <script>
+        // بيانات محاكاة - localStorage fallback
+        function getLocalStorage(key, fallback = {}) {
+            try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
+            catch { return fallback; }
+        }
+
+        function setLocalStorage(key, value) {
+            try { localStorage.setItem(key, JSON.stringify(value)); }
+            catch { console.warn(`Failed to save ${key}`); }
+        }
+
+        // معالج الأخطاء والتحقق من المستخدم (fallback بدون Firebase)
+        function readyPage() {
+            // حاول قراءة البيانات من كلا الـ keys
+            let user = null;
+            const userJson = localStorage.getItem('enjaz_user') || localStorage.getItem('sl_user');
+
+            if (userJson) {
+                try {
+                    user = JSON.parse(userJson);
+                } catch (e) {
+                    console.warn('خطأ في قراءة بيانات المستخدم:', e);
+                }
+            }
+
+            if (!user) {
+                user = {
+                    id: 'default-user',
+                    name: 'المستخدم',
+                    email: 'user@example.com',
+                    role: 'student'
+                };
+            }
+
+            const profile = getLocalStorage('enjaz_profile', {
+                name: user.name,
+                avatar: '👤',
+                theme: 'purple'
+            });
+
+            // تطبيق المظهر
+            const themeClass = profile.theme ? `theme-${profile.theme}` : 'theme-purple';
+            document.body.className = themeClass;
+
+            // تحديث الأسماء
+            document.getElementById('sidebar-name').textContent = user.name;
+            document.getElementById('header-name').textContent = `مرحباً، ${user.name}!`;
+            document.getElementById('home-username').textContent = user.name;
+            document.getElementById('sidebar-avatar').textContent = profile.avatar;
+            document.getElementById('header-avatar').textContent = profile.avatar;
+
+            // شارة الدور
+            const badgeMap = {
+                admin: { text: '🔐 مشرف النظام', color: '#7c3aed' },
+                doctor: { text: '👨‍🏫 تدريسي', color: '#06b6d4' },
+                student: { text: '🎓 طالب', color: '#22c55e' }
+            };
+            const badge = badgeMap[user.role];
+            const badgeEl = document.getElementById('role-badge');
+            if (badgeEl && badge) {
+                badgeEl.textContent = badge.text;
+                badgeEl.style.cssText = `display:inline-block; padding:3px 14px; border-radius:20px; background:${badge.color}22; color:${badge.color}; font-size:.8rem; font-weight:700; margin-top:8px; border:1px solid ${badge.color}44;`;
+            }
+
+            const sidebarRole = document.getElementById('sidebar-role');
+            if (sidebarRole) sidebarRole.textContent = badge?.text || user.role;
+
+            // ========== التحكم في الصلاحيات ==========
+            // إظهار/إخفاء العناصر بناءً على الدور
+            document.querySelectorAll('.student-only').forEach(el => {
+                el.style.display = user.role === 'student' ? '' : 'none';
+            });
+            document.querySelectorAll('.doctor-only').forEach(el => {
+                el.style.display = user.role === 'doctor' ? '' : 'none';
+            });
+            document.querySelectorAll('.admin-only').forEach(el => {
+                el.style.display = user.role === 'admin' ? '' : 'none';
+            });
+
+            // تحميل البيانات
+            const tasks = getLocalStorage('enjaz_tasks', []);
+            const points = parseInt(localStorage.getItem('enjaz_points') || '0');
+            const sched = getLocalStorage('enjaz_schedule', []);
+
+            // إذا كان دكتور، اخفِ بيانات الطالب
+            if (user.role === 'doctor') {
+                document.getElementById('leaderboard-section').style.display = 'none';
+                // عدّل الإحصائيات للدكتور
+                document.getElementById('total-tasks-done').parentElement.innerHTML = `
+                    <span class="stat-number" id="students-count">0</span>
+                    <span class="stat-label">طالب مسجل</span>
+                `;
+                document.getElementById('pending-tasks').parentElement.innerHTML = `
+                    <span class="stat-number" id="lectures-count">0</span>
+                    <span class="stat-label">محاضرة مرفوعة</span>
+                `;
+                document.getElementById('points-display').textContent = tasks.length; // عدد المهام التي أنشأها
+                document.getElementById('points-display').parentElement.querySelector('.stat-label').textContent = 'مهمة منشأة';
+            } else {
+                // إحصائيات الطالب العادية
+                document.getElementById('total-tasks-done').textContent = tasks.filter(t => t.done).length;
+                document.getElementById('pending-tasks').textContent = tasks.filter(t => !t.done).length;
+                document.getElementById('points-display').textContent = points;
+            }
+
+            // عرض البيانات
+            renderTodaySchedule(sched);
+            if (user.role === 'student') {
+                renderRecentTasks(tasks.slice(0, 3));
+                renderLeaderboard(points, user.name);
+            } else if (user.role === 'doctor') {
+                renderLecturesList([]);
+                renderStudentsList([]);
+            }
+
+            // أحداث
+            setupEvents(user);
+        }
+
+        function renderTodaySchedule(sched) {
+            const el = document.getElementById('today-schedule');
+            if (!el) return;
+            const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+            const today = days[new Date().getDay()];
+            const items = sched.filter(s => s.day === today);
+            if (!items.length) return;
+            el.innerHTML = items.map(s => `
+                <div class="schedule-mini-item">
+                    <strong>${s.subject}</strong>
+                    <small><i class="fas fa-clock"></i> ${s.time} • <i class="fas fa-location-dot"></i> ${s.location || 'غير محدد'}</small>
+                </div>
+            `).join('');
+        }
+
+        function renderRecentTasks(tasks) {
+            const el = document.getElementById('recent-tasks-list');
+            if (!el || !tasks.length) return;
+            el.innerHTML = tasks.map(t => `
+                <div class="task-item mini">
+                    <div class="task-check ${t.done ? 'done' : ''}">
+                        ${t.done ? '<i class="fas fa-check" style="font-size:.6rem;"></i>' : ''}
+                    </div>
+                    <span>${t.title}</span>
+                    <small style="margin-right:auto;color:var(--text-muted);">${t.subject || ''}</small>
+                </div>
+            `).join('');
+        }
+
+        function renderLeaderboard(userPoints, userName) {
+            const el = document.getElementById('leaderboard-list');
+            if (!el) return;
+            const leaders = [
+                { name: 'أحمد علي', points: 1250, avatar: 'A' },
+                { name: 'سارة محمود', points: 980, avatar: 'S' },
+                { name: 'محمد أحمد', points: 850, avatar: 'M' },
+                { name: 'ليلى خالد', points: 720, avatar: 'L' }
+            ];
+            leaders.push({ name: userName, points: userPoints, avatar: '👤', isMe: true });
+            leaders.sort((a, b) => b.points - a.points);
+
+            el.innerHTML = leaders.slice(0, 5).map((l, i) => {
+                const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
+                return `
+                    <div class="leaderboard-item" style="${l.isMe ? 'border-color:var(--primary); background:rgba(124,80,224,0.05);' : ''}">
+                        <div class="rank-badge ${rankClass}">${i + 1}</div>
+                        <div class="leader-avatar">${l.avatar}</div>
+                        <div class="leader-name">${l.name} ${l.isMe ? '(أنت)' : ''}</div>
+                        <div class="leader-points">${l.points}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ========== دوال خاصة بالدكتور ==========
+        function renderLecturesList(lectures) {
+            const el = document.getElementById('lectures-list');
+            if (!el) return;
+            if (!lectures.length) {
+                el.innerHTML = '<p class="empty-state">لم ترفع أي محاضرات بعد. ابدأ الآن! 🎥</p>';
+                return;
+            }
+            el.innerHTML = lectures.map(l => `
+                <div class="task-item mini" style="border-right:3px solid var(--primary);">
+                    <i class="fas fa-video" style="color:var(--primary); margin-right:4px;"></i>
+                    <span>${l.title}</span>
+                    <small style="margin-right:auto; color:var(--text-muted);">${l.subject}</small>
+                </div>
+            `).join('');
+        }
+
+        function renderStudentsList(students) {
+            const el = document.getElementById('students-list');
+            if (!el) return;
+            if (!students.length) {
+                el.innerHTML = '<p class="empty-state">لا توجد طلاب مسجلون بعد 👥</p>';
+                return;
+            }
+            el.innerHTML = students.map((s, i) => {
+                const rankClass = 'rank-other';
+                return `
+                    <div class="leaderboard-item">
+                        <div class="rank-badge ${rankClass}">${i + 1}</div>
+                        <div class="leader-avatar">${s.avatar}</div>
+                        <div class="leader-name">${s.name}</div>
+                        <small style="margin-right:auto; color:var(--text-muted);">${s.email}</small>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function setupEvents(user) {
+            document.getElementById('logout-btn')?.addEventListener('click', () => {
+                localStorage.removeItem('enjaz_user');
+                localStorage.removeItem('enjaz_token');
+                location.href = 'login.html';
+            });
+
+            document.getElementById('mobile-toggle')?.addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('open');
+                document.querySelector('.sidebar-overlay')?.classList.toggle('active');
+            });
+
+            document.querySelector('.sidebar-overlay')?.addEventListener('click', () => {
+                document.getElementById('sidebar').classList.remove('open');
+                document.querySelector('.sidebar-overlay')?.classList.remove('active');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            readyPage();
+            // تحديث الصورة الشخصية
+            if (typeof updateAvatar === 'function') updateAvatar();
+        });
+    </script>
+
+    <!-- Styles إضافية -->
+    <style>
+        .role-badge-big {
+            display: none;
+        }
+    </style>
+
+    <!-- Check Authentication -->
+    <script>
+        (function () {
+            const user = localStorage.getItem('enjaz_user') || localStorage.getItem('sl_user');
+            const token = localStorage.getItem('enjaz_token') || localStorage.getItem('sl_token');
+
+            if (!user || !token) {
+                window.location.href = 'Login.html';
+            } else {
+                try {
+                    const userData = JSON.parse(user);
+                    if (userData.role === 'doctor') {
+                        window.location.href = 'DoctorHome.html';
+                    }
+                } catch (e) {
+                    window.location.href = 'Login.html';
+                }
+            }
+        })();
+    </script>
+</body>
+
+</html>

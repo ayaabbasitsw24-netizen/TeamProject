@@ -1,0 +1,1088 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المخطط الأسبوعي — عشاق الدراسة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           إنجاز بلس — Design System (app.css)
+           A premium, unified design system for STMS MPA
+           ============================================================ */
+
+        /* ─── THEMES ─────────────────────────────────────────────── */
+        .theme-blue {
+            --primary: #3b82f6;
+            --primary-light: #60a5fa;
+            --primary-dark: #1e40af;
+            --accent-bg: rgba(59, 130, 246, 0.1);
+            --sidebar-bg: #dbeafe;
+            --sidebar-text: #0c2d6b;
+            --bg: #eff6ff;
+            --card-bg: #f0f9ff;
+            --text-main: #0c2d6b;
+            --text-muted: #3b82f6;
+            --border: #bfdbfe;
+            --shadow-sm: 0 2px 8px rgba(59, 130, 246, .08);
+            --shadow-md: 0 6px 24px rgba(59, 130, 246, .12);
+            --shadow-lg: 0 12px 45px rgba(59, 130, 246, .15);
+        }
+
+        .theme-purple {
+            --primary: #a78bfa;
+            --primary-light: #c4b5fd;
+            --primary-dark: #7e22ce;
+            --accent-bg: rgba(167, 139, 250, 0.1);
+            --sidebar-bg: #f3e8ff;
+            --sidebar-text: #5b21b6;
+            --bg: #faf5ff;
+            --card-bg: #fef3ff;
+            --text-main: #5b21b6;
+            --text-muted: #a78bfa;
+            --border: #e9d5ff;
+            --shadow-sm: 0 2px 8px rgba(167, 139, 250, .08);
+            --shadow-md: 0 6px 24px rgba(167, 139, 250, .12);
+            --shadow-lg: 0 12px 45px rgba(167, 139, 250, .15);
+        }
+
+        .theme-green {
+            --primary: #10b981;
+            --primary-light: #6ee7b7;
+            --primary-dark: #047857;
+            --accent-bg: rgba(16, 185, 129, 0.1);
+            --sidebar-bg: #d1fae5;
+            --sidebar-text: #064e3b;
+            --bg: #f0fdf4;
+            --card-bg: #f7fefc;
+            --text-main: #064e3b;
+            --text-muted: #10b981;
+            --border: #a7f3d0;
+            --shadow-sm: 0 2px 8px rgba(16, 185, 129, .08);
+            --shadow-md: 0 6px 24px rgba(16, 185, 129, .12);
+            --shadow-lg: 0 12px 45px rgba(16, 185, 129, .15);
+        }
+
+        .theme-dark {
+            --primary: #818cf8;
+            --primary-light: #a5b4fc;
+            --primary-dark: #4f46e5;
+            --accent-bg: rgba(129, 140, 248, 0.12);
+            --sidebar-bg: #111827;
+            --sidebar-text: #f3f4f6;
+            --bg: #1f2937;
+            --card-bg: #374151;
+            --text-main: #f3f4f6;
+            --text-muted: #d1d5db;
+            --border: #4b5563;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, .3);
+            --shadow-md: 0 6px 24px rgba(0, 0, 0, .4);
+            --shadow-lg: 0 12px 45px rgba(0, 0, 0, .55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            direction: rtl;
+            transition: background 0.35s, color 0.35s;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .app-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar-bg);
+            border-left: 2px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            z-index: 200;
+            transition: transform 0.3s cubic-bezier(.4, 0, .2, 1), box-shadow 0.3s;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, .12);
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px 18px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 1.6rem;
+        }
+
+        .logo-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.3px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 12px 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 4px;
+            color: var(--sidebar-text);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+            .nav-item i {
+                width: 20px;
+                text-align: center;
+                font-size: 1rem;
+                opacity: .7;
+                transition: opacity .2s;
+            }
+
+            .nav-item:hover {
+                background: var(--accent-bg);
+                color: var(--primary);
+            }
+
+                .nav-item:hover i {
+                    opacity: 1;
+                    color: var(--primary);
+                }
+
+            .nav-item.active {
+                background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+                color: #fff;
+                font-weight: 600;
+                box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 40%, transparent);
+            }
+
+                .nav-item.active i {
+                    opacity: 1;
+                    color: #fff;
+                }
+
+        .sidebar-footer {
+            padding: 14px 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-mini {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        .user-mini-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            border: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+            .user-mini-avatar img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .user-mini-info {
+            overflow: hidden;
+        }
+
+            .user-mini-info span {
+                font-size: .85rem;
+                font-weight: 600;
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .user-mini-info small {
+                font-size: .73rem;
+                color: var(--text-muted);
+            }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1rem;
+            padding: 6px 8px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+            .logout-btn:hover {
+                background: #fee2e2;
+                color: #ef4444;
+            }
+
+        .main-wrapper {
+            margin-right: 260px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .top-header {
+            background: var(--card-bg);
+            border-bottom: 2px solid var(--border);
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .page-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            padding: 4px 6px;
+            border-radius: 8px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .header-user span {
+                font-size: .9rem;
+                color: var(--text-muted);
+            }
+
+        .header-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            border: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            overflow: hidden;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 20px 24px;
+            overflow-y: auto;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: .95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+            transition: all 0.25s;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                filter: brightness(1.1);
+                box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+            }
+
+            .btn-primary:active {
+                transform: translateY(0);
+            }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1.5px solid var(--border);
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: .95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s;
+        }
+
+            .btn-secondary:hover {
+                background: var(--bg);
+                border-color: var(--primary);
+            }
+
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 26px;
+            border-radius: 30px;
+            font-size: .9rem;
+            z-index: 9999;
+            transition: transform .35s cubic-bezier(.175, .885, .32, 1.275);
+            white-space: nowrap;
+            pointer-events: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .2);
+        }
+
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .toast.success {
+                background: #16a34a;
+            }
+
+            .toast.error {
+                background: #dc2626;
+            }
+
+            .toast.info {
+                background: var(--primary);
+            }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            z-index: 150;
+            backdrop-filter: blur(3px);
+        }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+        /* ── Today Banner ── */
+        .today-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 16px;
+            padding: 16px 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-md);
+        }
+
+            .today-banner i {
+                font-size: 1.8rem;
+            }
+
+            .today-banner .today-info h3 {
+                font-size: 1.1rem;
+            }
+
+            .today-banner .today-info p {
+                font-size: 0.85rem;
+                opacity: 0.85;
+                margin-top: 2px;
+            }
+
+        .today-class-count {
+            margin-right: auto;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        /* ── Week Grid ── */
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .day-column {
+            min-width: 145px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+            .day-column.is-today {
+                border-color: var(--primary);
+                box-shadow: 0 0 0 2px var(--primary), var(--shadow-md);
+            }
+
+        .day-header {
+            padding: 12px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            background: var(--accent-bg);
+            position: relative;
+        }
+
+        .day-column.is-today .day-header {
+            background: var(--primary);
+            color: white;
+        }
+
+        .today-label {
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f59e0b;
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 1px 8px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .day-content {
+            padding: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 250px;
+        }
+
+        .schedule-item {
+            background: var(--bg);
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            border-right: 3px solid var(--primary);
+            transition: 0.2s;
+            cursor: default;
+            position: relative;
+        }
+
+            .schedule-item:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-sm);
+            }
+
+            .schedule-item strong {
+                display: block;
+                margin-bottom: 4px;
+                font-size: 0.88rem;
+            }
+
+            .schedule-item span {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                color: var(--text-muted);
+                font-size: 0.75rem;
+            }
+
+        .item-delete {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            background: #fee2e2;
+            color: #ef4444;
+            border: none;
+            border-radius: 6px;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.2s;
+        }
+
+        .schedule-item:hover .item-delete {
+            opacity: 1;
+        }
+
+        .empty-day {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            padding: 20px 0;
+            opacity: 0.5;
+        }
+
+        /* Color Map */
+        .color-1 {
+            border-right-color: #4f46e5;
+        }
+
+        .color-2 {
+            border-right-color: #06b6d4;
+        }
+
+        .color-3 {
+            border-right-color: #10b981;
+        }
+
+        .color-4 {
+            border-right-color: #f59e0b;
+        }
+
+        .color-5 {
+            border-right-color: #ef4444;
+        }
+
+        .color-6 {
+            border-right-color: #a855f7;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .modal-overlay.active {
+                display: flex;
+            }
+
+        .modal-card {
+            background: var(--card-bg);
+            border-radius: 22px;
+            padding: 32px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 460px;
+            animation: slideUp 0.3s ease;
+        }
+
+        @@keyframes slideUp {
+            from
+
+        {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        }
+
+        .modal-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 22px;
+            color: var(--primary);
+        }
+
+        .form-g {
+            margin-bottom: 14px;
+        }
+
+            .form-g label {
+                display: block;
+                font-size: 0.82rem;
+                margin-bottom: 6px;
+                color: var(--text-muted);
+                font-weight: 600;
+            }
+
+            .form-g input,
+            .form-g select {
+                width: 100%;
+                padding: 10px 14px;
+                border-radius: 10px;
+                border: 1.5px solid var(--border);
+                font-family: inherit;
+                background: var(--bg);
+                outline: none;
+                transition: 0.2s;
+            }
+
+                .form-g input:focus,
+                .form-g select:focus {
+                    border-color: var(--primary);
+                    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+                }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .color-dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
+
+            .color-dot.selected {
+                border-color: var(--text-main);
+                transform: scale(1.2);
+            }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+            .page-header h2 {
+                font-size: 1.2rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+        @@media (max-width: 768px) {
+            .sidebar
+
+        {
+            transform: translateX(100%);
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .main-wrapper {
+            margin-right: 0;
+        }
+
+        .mobile-toggle {
+            display: flex;
+        }
+
+        }
+    </style>
+</head>
+
+<body class="theme-purple">
+    <div class="sidebar-overlay"></div>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo"><span class="logo-icon">📚</span><span class="logo-text">منصة إنجاز</span></div>
+            </div>
+       
+
+
+              <nav class="sidebar-nav">
+                <a href="Dashboard" class="nav-item active" data-page="home">
+                    <i class="fas fa-home"></i> <span>الرئيسية</span>
+                </a>
+                <a href="DoctorSchedule" class="nav-item active"  class="nav-item" data-page="schedule">
+                    <i class="fas fa-calendar-alt"></i> <span>المخطط الأسبوعي</span>
+                </a>
+                <a href="lectures.html" class="nav-item" data-page="lectures">
+                    <i class="fas fa-video"></i> <span>محاضراتي</span>
+                </a>
+                <a href="assignments.html" class="nav-item" data-page="assignments">
+                    <i class="fas fa-tasks"></i> <span>التكاليف</span>
+                </a>
+                <a href="students.html" class="nav-item" data-page="students">
+                    <i class="fas fa-users"></i> <span>الطلاب</span>
+                </a>
+                <a href="announcements.html" class="nav-item" data-page="announcements">
+                    <i class="fas fa-bell"></i> <span>الإعلانات</span>
+                </a>
+                <a href="profile.html" class="nav-item" data-page="profile">
+                    <i class="fas fa-user-circle"></i> <span>ملفي الشخصي</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-mini">
+                    <div class="user-mini-avatar" id="sidebar-avatar">👨‍🏫</div>
+                    <div class="user-mini-info"><span id="sidebar-name">الدكتور</span><small id="sidebar-role">تدريسي</small></div>
+                </div>
+                <button class="logout-btn" id="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-toggle" id="mobile-toggle"><i class="fas fa-bars"></i></button>
+                    <h1 class="page-title">المخطط الأسبوعي</h1>
+                </div>
+                <div class="header-right">
+                    <div class="header-user">
+                        <span id="header-name">مرحباً!</span>
+                        <div class="header-avatar" id="header-avatar">👨‍🏫</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <div class="today-banner" id="today-banner">
+                    <i class="fas fa-sun"></i>
+                    <div class="today-info">
+                        <h3 id="today-name">اليوم</h3>
+                        <p id="today-date">التاريخ</p>
+                    </div>
+                    <div class="today-class-count" id="today-count">٠ حصص</div>
+                </div>
+
+                <div class="page-header">
+                    <h2><i class="fas fa-calendar-week"></i> جدولي الدراسي</h2>
+                    <button class="btn-primary" id="add-schedule-btn"><i class="fas fa-plus"></i> إضافة حصة</button>
+                </div>
+
+                <div class="week-grid" id="week-grid"></div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="schedule-modal" class="modal-overlay">
+        <div class="modal-card">
+            <h3>📅 إضافة حصة دراسية</h3>
+            <div class="form-g">
+                <label>اسم المادة *</label>
+                <input type="text" id="sch-subject" placeholder="مثال: هياكل البيانات">
+            </div>
+            <div class="form-g">
+                <label>لون المادة</label>
+                <div class="color-picker" id="color-picker">
+                    <div class="color-dot selected" data-color="1" style="background:#4f46e5;"></div>
+                    <div class="color-dot" data-color="2" style="background:#06b6d4;"></div>
+                    <div class="color-dot" data-color="3" style="background:#10b981;"></div>
+                    <div class="color-dot" data-color="4" style="background:#f59e0b;"></div>
+                    <div class="color-dot" data-color="5" style="background:#ef4444;"></div>
+                    <div class="color-dot" data-color="6" style="background:#a855f7;"></div>
+                </div>
+            </div>
+            <div class="form-g">
+                <label>اليوم</label>
+                <select id="sch-day">
+                    <option value="السبت">السبت</option>
+                    <option value="الأحد">الأحد</option>
+                    <option value="الإثنين">الإثنين</option>
+                    <option value="الثلاثاء">الثلاثاء</option>
+                    <option value="الأربعاء">الأربعاء</option>
+                    <option value="الخميس">الخميس</option>
+                </select>
+            </div>
+            <div class="form-row-2">
+                <div class="form-g">
+                    <label>وقت البداية</label>
+                    <input type="time" id="sch-time">
+                </div>
+                <div class="form-g">
+                    <label>وقت النهاية</label>
+                    <input type="time" id="sch-time-end">
+                </div>
+            </div>
+            <div class="form-row-2">
+                <div class="form-g">
+                    <label>المكان / القاعة</label>
+                    <input type="text" id="sch-location" placeholder="قاعة 4B">
+                </div>
+                <div class="form-g">
+                    <label>نوع الحصة</label>
+                    <select id="sch-type">
+                        <option value="محاضرة">محاضرة 📖</option>
+                        <option value="تطبيقي">تطبيقي 💻</option>
+                        <option value="مراجعة">مراجعة 🎯</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancel-schedule-btn">إلغاء</button>
+                <button class="btn-primary" id="save-schedule-btn"><i class="fas fa-save"></i> حفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        function getLocalStorage(key, fallback = []) {
+            try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
+            catch { return fallback; }
+        }
+
+        let schedule = [];
+        let selectedColor = '1';
+
+        const DAYS = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
+        const TODAY_MAP = { 0: 'الأحد', 1: 'الإثنين', 2: 'الثلاثاء', 3: 'الأربعاء', 4: 'الخميس', 5: 'الجمعة', 6: 'السبت' };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const user = getLocalStorage('enjaz_user', { name: 'الدكتور' });
+                document.getElementById('sidebar-name').textContent = user.name;
+                document.getElementById('header-name').textContent = `مرحباً، ${user.name}!`;
+                document.getElementById('sidebar-avatar').textContent = user.name.charAt(0).toUpperCase();
+                document.getElementById('header-avatar').textContent = user.name.charAt(0).toUpperCase();
+
+                const profile = getLocalStorage('enjaz_profile', { theme: 'purple' });
+                const themeClass = profile.theme ? `theme-${profile.theme}` : 'theme-purple';
+                document.body.className = themeClass;
+
+                schedule = getLocalStorage('enjaz_schedule', []);
+                setupTodayBanner();
+                renderWeek();
+                bindEvents();
+            } catch (e) { console.error(e.message); }
+        });
+
+        function setupTodayBanner() {
+            const now = new Date();
+            const todayAr = TODAY_MAP[now.getDay()];
+            const opts = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            document.getElementById('today-name').textContent = `يوم ${todayAr}`;
+            document.getElementById('today-date').textContent = now.toLocaleDateString('ar-SA', opts);
+            const todayClasses = schedule.filter(s => s.day === todayAr).length;
+            document.getElementById('today-count').textContent = `${todayClasses} حصة اليوم`;
+        }
+
+        function renderWeek() {
+            const now = new Date();
+            const todayAr = TODAY_MAP[now.getDay()];
+            const grid = document.getElementById('week-grid');
+
+            grid.innerHTML = DAYS.map(day => {
+                const items = schedule.filter(s => s.day === day).sort((a, b) => a.time.localeCompare(b.time));
+                const isToday = day === todayAr;
+                return `
+                <div class="day-column ${isToday ? 'is-today' : ''}">
+                    <div class="day-header">
+                        ${isToday ? '<span class="today-label">اليوم</span>' : ''}
+                        ${day}
+                        <div style="font-size:0.72rem;opacity:0.6;font-weight:500;margin-top:2px;">${items.length} حصة</div>
+                    </div>
+                    <div class="day-content">
+                        ${items.length ? items.map(s => `
+                            <div class="schedule-item color-${s.color || 1}">
+                                <button class="item-delete" onclick="deleteItem(${s.id})"><i class="fas fa-times"></i></button>
+                                <strong>${s.subject}</strong>
+                                <span><i class="fas fa-clock"></i> ${s.time}${s.timeEnd ? ' — ' + s.timeEnd : ''}</span>
+                                ${s.location ? `<span><i class="fas fa-location-dot"></i> ${s.location}</span>` : ''}
+                                ${s.type ? `<span><i class="fas fa-tag"></i> ${s.type}</span>` : ''}
+                            </div>
+                        `).join('') : '<p class="empty-day">☕ استراحة</p>'}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function bindEvents() {
+            document.getElementById('logout-btn')?.addEventListener('click', () => {
+                localStorage.removeItem('enjaz_user');
+                localStorage.removeItem('enjaz_token');
+                location.href = 'Login.html';
+            });
+
+            document.getElementById('add-schedule-btn')?.addEventListener('click', () => {
+                document.getElementById('schedule-modal').classList.add('active');
+            });
+
+            document.getElementById('cancel-schedule-btn')?.addEventListener('click', () => {
+                document.getElementById('schedule-modal').classList.remove('active');
+            });
+
+            document.getElementById('save-schedule-btn')?.addEventListener('click', saveSchedule);
+
+            document.getElementById('schedule-modal')?.addEventListener('click', e => {
+                if (e.target === document.getElementById('schedule-modal'))
+                    document.getElementById('schedule-modal').classList.remove('active');
+            });
+
+            document.querySelectorAll('.color-dot').forEach(dot => {
+                dot.addEventListener('click', () => {
+                    document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('selected'));
+                    dot.classList.add('selected');
+                    selectedColor = dot.dataset.color;
+                });
+            });
+
+            document.getElementById('mobile-toggle')?.addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('open');
+                document.querySelector('.sidebar-overlay')?.classList.toggle('active');
+            });
+
+            document.querySelector('.sidebar-overlay')?.addEventListener('click', () => {
+                document.getElementById('sidebar').classList.remove('open');
+                document.querySelector('.sidebar-overlay')?.classList.remove('active');
+            });
+        }
+
+        function saveSchedule() {
+            const subject = document.getElementById('sch-subject').value.trim();
+            const time = document.getElementById('sch-time').value;
+            if (!subject || !time) { showToast('أدخل اسم المادة والوقت على الأقل', 'error'); return; }
+
+            const item = {
+                id: Date.now(),
+                subject,
+                day: document.getElementById('sch-day').value,
+                time,
+                timeEnd: document.getElementById('sch-time-end').value,
+                location: document.getElementById('sch-location').value.trim(),
+                type: document.getElementById('sch-type').value,
+                color: selectedColor
+            };
+
+            schedule.push(item);
+            localStorage.setItem('enjaz_schedule', JSON.stringify(schedule));
+            document.getElementById('schedule-modal').classList.remove('active');
+            document.getElementById('sch-subject').value = '';
+            setupTodayBanner();
+            renderWeek();
+            showToast(`تمت إضافة "${subject}" للجدول 📅`, 'success');
+        }
+
+        window.deleteItem = (id) => {
+            if (!confirm('حذف هذه الحصة من الجدول؟')) return;
+            schedule = schedule.filter(s => s.id !== id);
+            localStorage.setItem('enjaz_schedule', JSON.stringify(schedule));
+            setupTodayBanner();
+            renderWeek();
+            showToast('تم حذف الحصة', 'info');
+        };
+
+        function showToast(msg, type = 'info') {
+            const t = document.getElementById('toast');
+            if (!t) return;
+            t.textContent = msg;
+            t.className = `toast ${type} show`;
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // Authentication
+        (function () {
+            const user = localStorage.getItem('enjaz_user');
+            const token = localStorage.getItem('enjaz_token');
+            if (!user || !token) {
+                window.location.href = 'login.html';
+            }
+        })();
+    </script>
+</body>
+
+</html>
