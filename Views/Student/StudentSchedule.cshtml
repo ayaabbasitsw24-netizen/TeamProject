@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
@@ -9,9 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         /* ============================================================
-           إنجاز بلس — Design System (app.css)
-           A premium, unified design system for STMS MPA
-           ============================================================ */
+                   إنجاز بلس — Design System (app.css)
+                   A premium, unified design system for STMS MPA
+                   ============================================================ */
 
         /* ─── THEMES ─────────────────────────────────────────────── */
         .theme-blue {
@@ -198,7 +198,7 @@
                 background: linear-gradient(135deg, var(--primary), var(--primary-dark));
                 color: #fff;
                 font-weight: 600;
-                box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 40%, transparent);
+                box-shadow: 0 4px 14px;
             }
 
                 .nav-item.active i {
@@ -580,24 +580,21 @@
             }
 
         @@media (max-width: 768px) {
-            .sidebar
+            .sidebar {
+                transform: translateX(100%);
+            }
 
-        {
-            transform: translateX(100%);
-        }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
 
-        .sidebar.open {
-            transform: translateX(0);
-        }
+            .main-wrapper {
+                margin-right: 0;
+            }
 
-        .main-wrapper {
-            margin-right: 0;
-        }
-
-        .mobile-toggle {
-            display: flex;
-        }
-
+            .mobile-toggle {
+                display: flex;
+            }
         }
     </style>
 </head>
@@ -609,26 +606,32 @@
             <div class="sidebar-header">
                 <div class="logo"><span class="logo-icon">📚</span><span class="logo-text">عشاق الدراسة</span></div>
             </div>
+
+
+
             <nav class="sidebar-nav">
-                <a href="StudentHome.html" class="nav-item"><i class="fas fa-home"></i> <span>الرئيسية</span></a>
-                <a href="StudentSchedule.html" class="nav-item active">
-                    <i class="fas fa-calendar-alt"></i> <span>
-                        جدولي
-                        الدراسي
-                    </span>
+                <a href="Dashboard" class="nav-item" data-page="home">
+                    <i class="fas fa-home"></i> <span>الرئيسية</span>
                 </a>
-                <a href="StudentLectures.html" class="nav-item"><i class="fas fa-video"></i> <span>محاضراتي</span></a>
-                <a href="StudentAssignments.html" class="nav-item">
-                    <i class="fas fa-tasks"></i>
-                    <span>التكاليف</span>
+                <a href="StudentSchedule" class="nav-item active" data-page="StudentSchedule">
+                    <i class="fas fa-calendar-alt"></i> <span>المخطط الأسبوعي</span>
                 </a>
-                <a href="StudentProfile.html" class="nav-item">
-                    <i class="fas fa-user-circle"></i> <span>
-                        ملفي
-                        الشخصي
-                    </span>
+                <a href="lectures" class="nav-item" data-page="lectures">
+                    <i class="fas fa-video"></i> <span>المحاضرات</span>
+                </a>
+                <a href="assignment" class="nav-item" data-page="assignment">
+                    <i class="fas fa-tasks"></i> <span>الواجبات</span>
+                </a>
+                <a href="chat" class="nav-item" data-page="chat">
+                    <i class="fas fa-users"></i> <span>ركن الدردشة</span>
+                </a>
+                <a href="profile" class="nav-item" data-page="profile">
+                    <i class="fas fa-user-circle"></i> <span>ملفي الشخصي</span>
                 </a>
             </nav>
+
+
+
             <div class="sidebar-footer">
                 <div class="user-mini">
                     <div class="user-mini-avatar" id="sidebar-avatar">👨‍🎓</div>
@@ -778,6 +781,20 @@
                 window.location.href = 'Login.html';
             }
         })();
+
+        // تحديث التنقل النشط
+        function updateActiveNav() {
+            const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'Dashboard';
+            document.querySelectorAll('.nav-item').forEach(item => {
+                const itemPage = item.getAttribute('href')?.replace('.html', '');
+                if (itemPage === currentPage || (currentPage === '' && itemPage === 'Dashboard')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', updateActiveNav);
     </script>
 </body>
 
