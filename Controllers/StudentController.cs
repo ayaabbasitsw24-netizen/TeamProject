@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace StudyLovers.Controllers
 {
@@ -15,6 +15,29 @@ namespace StudyLovers.Controllers
             return View();
         }
 
+        public IActionResult lectures()
+        {
+            return View();
+        }
+
+
+
+    
+
+        public IActionResult assignment()
+        {
+            return View();
+        }
+
+        public IActionResult chat()
+        {
+            return View();
+        }
+
+        public IActionResult profile()
+        {
+            return View();
+        }
 
     }
 }
