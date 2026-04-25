@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
@@ -10,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         /* ============================================================
-           إنجاز بلس — Design System (app.css)
-           A premium, unified design system for STMS MPA
-           ============================================================ */
+                   إنجاز بلس — Design System (app.css)
+                   A premium, unified design system for STMS MPA
+                   ============================================================ */
 
         /* ─── THEMES ─────────────────────────────────────────────── */
         .theme-blue {
@@ -362,18 +362,15 @@
         }
 
         @@keyframes fadeIn {
-            from
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
 
-        {
-            opacity: 0;
-            transform: translateY(12px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .card {
@@ -478,20 +475,17 @@
         }
 
         @@keyframes gradientShift {
-            0%
+            0% {
+                background-position: 0% 50%;
+            }
 
-        {
-            background-position: 0% 50%;
-        }
+            50% {
+                background-position: 100% 50%;
+            }
 
-        50% {
-            background-position: 100% 50%;
-        }
-
-        100% {
-            background-position: 0% 50%;
-        }
-
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .welcome-text h2 {
@@ -570,17 +564,14 @@
                 }
 
         @@keyframes pulse {
-            0%, 100%
+            0%, 100% {
+                transform: scale(1);
+            }
 
-        {
-            transform: scale(1);
-        }
-
-        50% {
-            transform: scale(1.2);
-            filter: drop-shadow(0 0 6px rgba(245, 158, 11, .5));
-        }
-
+            50% {
+                transform: scale(1.2);
+                filter: drop-shadow(0 0 6px rgba(245, 158, 11, .5));
+            }
         }
 
         .stat-number {
@@ -814,41 +805,38 @@
             }
 
         @@media (max-width: 768px) {
-            .sidebar
+            .sidebar {
+                transform: translateX(100%);
+            }
 
-        {
-            transform: translateX(100%);
-        }
+                .sidebar.open {
+                    transform: translateX(0);
+                    box-shadow: -8px 0 40px rgba(0, 0, 0, .2);
+                }
 
-        .sidebar.open {
-            transform: translateX(0);
-            box-shadow: -8px 0 40px rgba(0, 0, 0, .2);
-        }
+            .main-wrapper {
+                margin-right: 0;
+            }
 
-        .main-wrapper {
-            margin-right: 0;
-        }
+            .mobile-toggle {
+                display: flex;
+            }
 
-        .mobile-toggle {
-            display: flex;
-        }
+            .content-area {
+                padding: 18px 16px;
+            }
 
-        .content-area {
-            padding: 18px 16px;
-        }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-        .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
+            .home-sections {
+                grid-template-columns: 1fr;
+            }
 
-        .home-sections {
-            grid-template-columns: 1fr;
-        }
-
-        .welcome-emoji {
-            font-size: 3rem;
-        }
-
+            .welcome-emoji {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
@@ -865,26 +853,32 @@
                     <span class="logo-text">مَنصة أنجاز</span>
                 </div>
             </div>
+
+
             <nav class="sidebar-nav">
                 <a href="Dashboard" class="nav-item active" data-page="home">
                     <i class="fas fa-home"></i> <span>الرئيسية</span>
                 </a>
-                <a href="tasks.html" class="nav-item" data-page="tasks">
-                    <i class="fas fa-check-square"></i> <span>قائمة المهام</span>
-                </a>
-                <a href="StudentSchedule" class="nav-item" data-page="schedule">
+                <a href="StudentSchedule" class="nav-item" data-page="StudentSchedule">
                     <i class="fas fa-calendar-alt"></i> <span>المخطط الأسبوعي</span>
                 </a>
-                <a href="subjects.html" class="nav-item" data-page="subjects">
-                    <i class="fas fa-book"></i> <span>المواد الدراسية</span>
+                <a href="lectures" class="nav-item" data-page="lectures">
+                    <i class="fas fa-video"></i> <span>المحاضرات</span>
                 </a>
-                <a href="chat.html" class="nav-item" data-page="chat">
-                    <i class="fas fa-comments"></i> <span>ركن الدردشة</span>
+                <a href="assignment" class="nav-item" data-page="assignment">
+                    <i class="fas fa-tasks"></i> <span> الواجبات</span>
                 </a>
-                <a href="profile.html" class="nav-item" data-page="profile">
+                <a href="chat" class="nav-item" data-page="chat">
+                    <i class="fas fa-users"></i> <span>ركن الدردشة  </span>
+                </a>
+
+                <a href="profile" class="nav-item" data-page="profile">
                     <i class="fas fa-user-circle"></i> <span>ملفي الشخصي</span>
                 </a>
             </nav>
+
+
+
             <div class="sidebar-footer">
                 <div class="user-mini">
                     <div class="user-mini-avatar" id="sidebar-avatar">👤</div>
@@ -964,13 +958,7 @@
 
                     <!-- أقسام الرئيسية -->
                     <div class="home-sections" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-                        <!-- قسم الطالب: أحدث المهام -->
-                        <div class="home-section student-only">
-                            <h3><i class="fas fa-bolt"></i> أحدث المهام</h3>
-                            <div id="recent-tasks-list">
-                                <p class="empty-state">لا توجد مهام حتى الآن. أضف مهمتك الأولى! ✨</p>
-                            </div>
-                        </div>
+                      
 
                         <!-- قسم الدكتور: المحاضرات المرفوعة -->
                         <div class="home-section doctor-only" style="display:none;">
@@ -1026,28 +1014,16 @@
                         <h3><i class="fas fa-bolt"></i> إجراءات سريعة</h3>
                         <div class="qa-grid">
                             <!-- مشترك -->
-                            <a href="tasks.html" class="qa-card student-only">
-                                <i class="fas fa-plus-circle"></i>
-                                <span>إضافة مهمة</span>
-                            </a>
-                            <a href="schedule.html" class="qa-card">
+                        
+                            <a href="StudentSchedule" class="qa-card">
                                 <i class="fas fa-calendar-plus"></i>
                                 <span>الجدول الأسبوعي</span>
                             </a>
-                            <a href="subjects.html" class="qa-card">
+                            <a href="lectures" class="qa-card">
                                 <i class="fas fa-book-open"></i>
                                 <span>المواد الدراسية</span>
                             </a>
-                            <!-- دكتور / أدمن -->
-                            <a href="subjects.html" class="qa-card doctor-only" style="display:none;">
-                                <i class="fas fa-file-circle-plus"></i>
-                                <span>رفع محاضرة</span>
-                            </a>
-                            <a href="admin.html" class="qa-card admin-only"
-                               style="display:none;background:linear-gradient(135deg,#7c3aed,#a855f7);">
-                                <i class="fas fa-users-cog"></i>
-                                <span>إدارة المستخدمين</span>
-                            </a>
+                            
                         </div>
                     </div>
 
@@ -1291,9 +1267,23 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             readyPage();
+            updateActiveNav();
             // تحديث الصورة الشخصية
             if (typeof updateAvatar === 'function') updateAvatar();
         });
+
+        // تحديث التنقل النشط
+        function updateActiveNav() {
+            const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'Dashboard';
+            document.querySelectorAll('.nav-item').forEach(item => {
+                const itemPage = item.getAttribute('href')?.replace('.html', '');
+                if (itemPage === currentPage || (currentPage === '' && itemPage === 'Dashboard')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
     </script>
 
     <!-- Styles إضافية -->
