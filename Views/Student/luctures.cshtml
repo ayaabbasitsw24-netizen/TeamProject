@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المحاضرات — عشاق الدراسة</title>
+    <meta name="description" content="صفحة المحاضرات — عرض المحاضرات الدراسية">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ── Design System ── */
+        .theme-blue {
+            --primary: #4e7bef;
+            --primary-light: #7ea8f5;
+            --primary-dark: #2d57cc;
+            --accent-bg: rgba(78, 123, 239, 0.07);
+            --sidebar-bg: #f7f9ff;
+            --sidebar-text: #354060;
+            --bg: #f0f4fb;
+            --card-bg: #ffffff;
+            --text-main: #1a2540;
+            --text-muted: #6c7a95;
+            --border: #e3e8f4;
+            --shadow-sm: 0 2px 8px rgba(78, 123, 239, .08);
+            --shadow-md: 0 6px 24px rgba(78, 123, 239, .13);
+            --shadow-lg: 0 12px 45px rgba(78, 123, 239, .18);
+        }
+
+        .theme-purple {
+            --primary: #7c50e0;
+            --primary-light: #a484ee;
+            --primary-dark: #5630b5;
+            --accent-bg: rgba(124, 80, 224, 0.07);
+            --sidebar-bg: #f8f5ff;
+            --sidebar-text: #3a2060;
+            --bg: #f3f0fd;
+            --card-bg: #ffffff;
+            --text-main: #220e45;
+            --text-muted: #7060a0;
+            --border: #e4d8f8;
+            --shadow-sm: 0 2px 8px rgba(124, 80, 224, .08);
+            --shadow-md: 0 6px 24px rgba(124, 80, 224, .13);
+            --shadow-lg: 0 12px 45px rgba(124, 80, 224, .18);
+        }
+
+        .theme-green {
+            --primary: #1db27a;
+            --primary-light: #4fcda0;
+            --primary-dark: #128a5e;
+            --accent-bg: rgba(29, 178, 122, 0.07);
+            --sidebar-bg: #f3fbf7;
+            --sidebar-text: #1a3d2e;
+            --bg: #eef9f4;
+            --card-bg: #ffffff;
+            --text-main: #0d2e20;
+            --text-muted: #5a8070;
+            --border: #c8eedc;
+            --shadow-sm: 0 2px 8px rgba(29, 178, 122, .08);
+            --shadow-md: 0 6px 24px rgba(29, 178, 122, .13);
+            --shadow-lg: 0 12px 45px rgba(29, 178, 122, .18);
+        }
+
+        .theme-dark {
+            --primary: #8b7cf8;
+            --primary-light: #a89ef9;
+            --primary-dark: #6a5cd4;
+            --accent-bg: rgba(139, 124, 248, .12);
+            --sidebar-bg: #1b1b30;
+            --sidebar-text: #c4c4e0;
+            --bg: #111120;
+            --card-bg: #1e1e35;
+            --text-main: #e6e6fa;
+            --text-muted: #8080aa;
+            --border: rgba(255, 255, 255, .08);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, .3);
+            --shadow-md: 0 6px 24px rgba(0, 0, 0, .4);
+            --shadow-lg: 0 12px 45px rgba(0, 0, 0, .55);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            direction: rtl;
+            transition: background .35s, color .35s
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        /* ── Layout ── */
+        .app-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            z-index: 200;
+            transition: transform 0.3s cubic-bezier(.4, 0, .2, 1);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, .08);
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 1.6rem;
+        }
+
+        .logo-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 12px 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 4px;
+            color: var(--sidebar-text);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+            .nav-item i {
+                width: 20px;
+                text-align: center;
+                font-size: 1rem;
+                opacity: .7;
+            }
+
+            .nav-item:hover {
+                background: var(--accent-bg);
+                color: var(--primary);
+            }
+
+            .nav-item.active {
+                background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+                color: #fff;
+                font-weight: 600;
+            }
+
+        .sidebar-footer {
+            padding: 14px 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-mini {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        .user-mini-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            border: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .user-mini-info span {
+            font-size: .85rem;
+            font-weight: 600;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-mini-info small {
+            font-size: .73rem;
+            color: var(--text-muted);
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1rem;
+            padding: 6px 8px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+            .logout-btn:hover {
+                background: #fee2e2;
+                color: #ef4444;
+            }
+
+        .main-wrapper {
+            margin-right: 260px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .top-header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .page-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            padding: 4px 6px;
+            border-radius: 8px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            border: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 24px 28px;
+            overflow-y: auto;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            z-index: 150;
+            backdrop-filter: blur(3px);
+        }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+        /* ── Views ── */
+        .view {
+            display: none;
+        }
+
+            .view.active {
+                display: block;
+                animation: fadeIn 0.3s ease;
+            }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Search ── */
+        .search-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1.5px solid var(--border);
+            font-family: inherit;
+            background: var(--card-bg);
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.2s;
+            margin-bottom: 20px;
+        }
+
+            .search-box:focus {
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px var(--accent-bg);
+            }
+
+        /* ── Grid ── */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .subject-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1.5px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .subject-card:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-md);
+                border-color: var(--primary-light);
+            }
+
+        .subject-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--accent-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .subject-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .subject-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .lecture-count {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--accent-bg);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* ── Lectures View ── */
+        .lectures-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+            .lectures-header h2 {
+                font-size: 1.3rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tab {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1.5px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+            .tab.active {
+                background: var(--primary);
+                color: white;
+                border-color: var(--primary);
+            }
+
+        .lectures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .lecture-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1.5px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+            .lecture-card:hover {
+                transform: translateY(-3px);
+                box-shadow: var(--shadow-md);
+                border-color: var(--primary-light);
+            }
+
+            .lecture-card .icon {
+                width: 44px;
+                height: 44px;
+                border-radius: 12px;
+                background: var(--accent-bg);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.3rem;
+                color: var(--primary);
+                margin-bottom: 12px;
+            }
+
+            .lecture-card h4 {
+                font-size: 0.95rem;
+                font-weight: 600;
+                color: var(--text-main);
+                margin-bottom: 6px;
+            }
+
+            .lecture-card p {
+                font-size: 0.8rem;
+                color: var(--text-muted);
+            }
+
+        /* ── Details View ── */
+        .details-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+            .details-header h2 {
+                font-size: 1.2rem;
+                font-weight: 700;
+            }
+
+        .btn-secondary {
+            background: var(--accent-bg);
+            color: var(--primary);
+            border: 1.5px solid var(--primary-light);
+            padding: 9px 18px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.2s;
+        }
+
+            .btn-secondary:hover {
+                background: var(--primary);
+                color: white;
+            }
+
+        .lecture-content {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1.5px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 20px;
+        }
+
+            .lecture-content h3 {
+                font-size: 1.1rem;
+                font-weight: 700;
+                margin-bottom: 16px;
+                color: var(--primary);
+            }
+
+            .lecture-content p {
+                line-height: 1.8;
+                color: var(--text-main);
+            }
+
+            .lecture-content ul {
+                padding-right: 20px;
+                margin: 12px 0;
+            }
+
+            .lecture-content li {
+                margin: 8px 0;
+            }
+
+        .files-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1.5px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+            .files-section h4 {
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 16px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+            transition: 0.2s;
+        }
+
+            .file-item:hover {
+                border-color: var(--primary-light);
+                background: var(--accent-bg);
+            }
+
+            .file-item i {
+                font-size: 1.3rem;
+                color: var(--primary);
+            }
+
+        .file-info {
+            flex: 1;
+        }
+
+            .file-info span {
+                font-size: 0.9rem;
+                font-weight: 600;
+                display: block;
+            }
+
+            .file-info small {
+                font-size: 0.75rem;
+                color: var(--text-muted);
+            }
+
+        .file-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent-bg);
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+            .btn-icon:hover {
+                background: var(--primary);
+                color: white;
+            }
+
+        /* ── Empty State ── */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+            .empty-state .icon {
+                font-size: 4rem;
+                margin-bottom: 16px;
+                opacity: 0.5;
+            }
+
+            .empty-state h3 {
+                font-size: 1.2rem;
+                font-weight: 700;
+                margin-bottom: 8px;
+            }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 26px;
+            border-radius: 30px;
+            font-size: .9rem;
+            z-index: 9999;
+            transition: transform .35s cubic-bezier(.175, .885, .32, 1.275);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+        /* ── Responsive ── */
+        @@media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%);
+            }
+
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+
+            .main-wrapper {
+                margin-right: 0;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .content-area {
+                padding: 18px 16px;
+            }
+
+            .subjects-grid,
+            .lectures-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lectures-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .tabs {
+                width: 100%;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-blue">
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <div class="app-wrapper">
+
+        <!-- ══════════ SIDEBAR ══════════ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">📚</span>
+                    <span class="logo-text">عشاق الدراسة</span>
+                </div>
+            </div>
+
+
+
+            <nav class="sidebar-nav">
+                <a href="Dashboard" class="nav-item active" data-page="home">
+                    <i class="fas fa-home"></i> <span>الرئيسية</span>
+                </a>
+                <a href="StudentSchedule" class="nav-item" data-page="StudentSchedule">
+                    <i class="fas fa-calendar-alt"></i> <span>المخطط الأسبوعي</span>
+                </a>
+                <a href="lectures" class="nav-item" data-page="lectures">
+                    <i class="fas fa-video"></i> <span>المحاضرات</span>
+                </a>
+                <a href="assignment" class="nav-item" data-page="assignment">
+                    <i class="fas fa-tasks"></i> <span> الواجبات</span>
+                </a>
+                <a href="chat" class="nav-item" data-page="chat">
+                    <i class="fas fa-users"></i> <span>ركن الدردشة  </span>
+                </a>
+
+                <a href="profile" class="nav-item" data-page="profile">
+                    <i class="fas fa-user-circle"></i> <span>ملفي الشخصي</span>
+                </a>
+            </nav>
+
+
+            <div class="sidebar-footer">
+                <div class="user-mini">
+                    <div class="user-mini-avatar" id="sidebar-avatar">👤</div>
+                    <div class="user-mini-info">
+                        <span id="sidebar-name">المستخدم</span>
+                        <small id="sidebar-role">طالب</small>
+                    </div>
+                </div>
+                <button class="logout-btn" id="logout-btn" title="تسجيل الخروج">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ══════════ MAIN ══════════ -->
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-toggle" id="mobile-toggle"><i class="fas fa-bars"></i></button>
+                    <h1 class="page-title">🎓 المحاضرات</h1>
+                </div>
+                <div class="header-right">
+                    <div class="header-avatar" id="header-avatar">👤</div>
+                </div>
+            </header>
+
+            <main class="content-area">
+
+                <!-- ══════════ VIEW: DASHBOARD (Subjects List) ══════════ -->
+                <div class="view active" id="dashboard-view">
+                    <input type="text" class="search-box" id="subject-search" placeholder="🔍 ابحث عن مادة...">
+                    <div class="subjects-grid" id="subjects-grid"></div>
+                </div>
+
+                <!-- ══════════ VIEW: LECTURES ══════════ -->
+                <div class="view" id="lectures-view">
+                    <div class="lectures-header">
+                        <h2 id="current-subject-title">📚 المادة</h2>
+                        <div class="tabs">
+                            <button class="tab active" data-type="theory">📖 نظري</button>
+                            <button class="tab" data-type="practical">🔧 عملي</button>
+                        </div>
+                    </div>
+                    <input type="text" class="search-box" id="lecture-search" placeholder="🔍 ابحث عن محاضرة...">
+                    <div class="lectures-grid" id="lectures-grid"></div>
+                    <div style="margin-top: 20px;">
+                        <button class="btn-secondary" onclick="showView('dashboard')">
+                            <i class="fas fa-arrow-right"></i> العودة للمواد
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ══════════ VIEW: LECTURE DETAILS ══════════ -->
+                <div class="view" id="details-view">
+                    <div class="details-header">
+                        <h2 id="current-lecture-title">📄 المحاضرة</h2>
+                        <button class="btn-secondary" onclick="showView('lectures')">
+                            <i class="fas fa-arrow-right"></i> العودة للمحاضرات
+                        </button>
+                    </div>
+
+                    <div class="lecture-content" id="lecture-body">
+                        <!-- Content will be loaded here -->
+                    </div>
+
+                    <!-- عرض PDF مباشرة -->
+                    <div class="pdf-viewer-container" id="pdf-viewer-container" style="display:none; margin: 20px 0; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--border);">
+                        <div style="background: var(--card-bg); padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 600; color: var(--text-main);"><i class="fas fa-file-pdf" style="color: #e74c3c; margin-left: 8px;"></i> عرض الملف</span>
+                            <button class="btn-icon" onclick="closePdfViewer()" title="إغلاق">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <iframe id="pdf-iframe" style="width: 100%; height: 600px; border: none; display: block;" type="application/pdf"></iframe>
+                    </div>
+
+                    <div class="files-section">
+                        <h4><i class="fas fa-paperclip"></i> الملفات المرفقة</h4>
+                        <div id="files-list">
+                            <!-- Files will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // ══════════════════════════════════════════════
+        //  Data & State
+        // ══════════════════════════════════════════════
+        const subjectsData = [
+            {
+                id: "programming-1",
+                title: "برمجة الحاسوب 1",
+                icon: "fa-code",
+                description: "أساسيات البرمجة بلغة C++ والمفاهيم البرمجية الأساسية.",
+                theory: [
+                    { id: "prog1-t1", title: "المحاضرة الأولى: مقدمة في البرمجة", pdfUrl: "../assets/pdfs/prog1_lec1.pdf", content: "<h3>مقدمة في البرمجة</h3><p>في هذه المحاضرة سنتعرف على تاريخ لغات البرمجة وكيفية عمل الحاسوب.</p><ul><li>ما هي لغة البرمجة؟</li><li>المجمع والمترجم</li><li>هيكلية برنامج C++</li></ul>" },
+                    { id: "prog1-t2", title: "المحاضرة الثانية: أنواع البيانات", pdfUrl: "../assets/pdfs/prog1_lec2.pdf", content: "<h3>أنواع البيانات في C++</h3><p>شرح للـ int, float, double, char, string وكيفية تعريف المتغيرات.</p>" }
+                ],
+                practical: [
+                    { id: "prog1-p1", title: "التمرين الأول: بيئة العمل", pdfUrl: "../assets/pdfs/prog1_lab1.pdf", content: "<h3>إعداد بيئة التطوير</h3><p>خطوات تثبيت برامج التطوير وتشغيل أول برنامج.</p>" }
+                ]
+            },
+            {
+                id: "networks",
+                title: "شبكات الحاسوب",
+                icon: "fa-network-wired",
+                description: "دراسة طبقات الشبكة وبروتوكولات الاتصال ونماذج OSI و TCP/IP.",
+                theory: [
+                    { id: "net-t1", title: "المحاضرة الأولى: مقدمة في الشبكات", pdfUrl: "../assets/pdfs/networks_lec1.pdf", content: "<p>مقدمة في طوبولوجيا الشبكات وأنواعها (LAN, WAN, MAN).</p>" }
+                ],
+                practical: [
+                    { id: "net-p1", title: "المخبر 1: كبسلة الكوابل", pdfUrl: "../assets/pdfs/networks_lab1.pdf", content: "<p>طريقة صنع كابل الشبكة (Straight & Crossover).</p>" }
+                ]
+            },
+            {
+                id: "databases",
+                title: "قواعد البيانات",
+                icon: "fa-database",
+                description: "مفاهيم قواعد البيانات العلائقية ولغة SQL وتصميم الجداول.",
+                theory: [
+                    { id: "db-t1", title: "المحاضرة 1: مقدمة في قواعد البيانات", pdfUrl: "../assets/pdfs/db_lec1.pdf", content: "<p>شرح مفهوم البيانات، المعلومات، ونظام إدارة قواعد البيانات.</p>" }
+                ],
+                practical: [
+                    { id: "db-p1", title: "المخبر 1: لغة DDL", pdfUrl: "../assets/pdfs/db_lab1.pdf", content: "<p>استخدام أوامر CREATE, ALTER, DROP.</p>" }
+                ]
+            },
+            {
+                id: "ai",
+                title: "الذكاء الاصطناعي",
+                icon: "fa-brain",
+                description: "خوارزميات البحث، المنطق، والتعلم الآلي والشبكات العصبية.",
+                theory: [
+                    { id: "ai-t1", title: "المحاضرة 1: ما هو الذكاء الاصطناعي؟", pdfUrl: "../assets/pdfs/ai_lec1.pdf", content: "<p>تاريخ الذكاء الاصطناعي واختبار تورينج.</p>" }
+                ],
+                practical: []
+            }
+        ];
+
+        const state = {
+            currentSubject: null,
+            currentType: 'theory',
+            subjectSearchTerm: '',
+            lectureSearchTerm: ''
+        };
+
+        // ══════════════════════════════════════════════
+        //  Init
+        // ══════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', () => {
+            // Auth check
+            const rawUser = localStorage.getItem('enjaz_user');
+            const token = localStorage.getItem('enjaz_token');
+            if (!rawUser || !token) {
+                location.href = 'login.html';
+                return;
+            }
+
+            const user = JSON.parse(rawUser);
+            document.getElementById('sidebar-name').textContent = user.name;
+            document.getElementById('sidebar-avatar').textContent = user.name.charAt(0).toUpperCase();
+            document.getElementById('header-avatar').textContent = user.name.charAt(0).toUpperCase();
+
+            // Theme
+            const profile = JSON.parse(localStorage.getItem('enjaz_profile') || '{"theme":"blue"}');
+            document.body.className = `theme-${profile.theme || 'blue'}`;
+
+            // Merge custom data from doctor's page
+            mergeCustomData();
+
+            // Render
+            renderSubjects();
+            bindEvents();
+        });
+
+        function mergeCustomData() {
+            // Merge custom subjects
+            const customList = JSON.parse(localStorage.getItem('enjaz_subjects_custom_list') || '[]');
+            customList.forEach(s => {
+                if (!subjectsData.find(ex => ex.id === s.id)) {
+                    subjectsData.push(s);
+                }
+            });
+
+            // Merge custom lectures
+            const customDB = JSON.parse(localStorage.getItem('enjaz_subjects_custom') || '{}');
+            subjectsData.forEach(subject => {
+                if (customDB[subject.id]) {
+                    ['theory', 'practical'].forEach(type => {
+                        if (customDB[subject.id][type]) {
+                            const existingIds = subject[type].map(l => l.id);
+                            customDB[subject.id][type].forEach(l => {
+                                if (!existingIds.includes(l.id)) {
+                                    subject[type].push(l);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        // ══════════════════════════════════════════════
+        //  Render Functions
+        // ══════════════════════════════════════════════
+        function renderSubjects() {
+            const grid = document.getElementById('subjects-grid');
+            const filtered = subjectsData.filter(s =>
+                s.title.toLowerCase().includes(state.subjectSearchTerm) ||
+                s.description.toLowerCase().includes(state.subjectSearchTerm)
+            );
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="icon">📭</div>
+                        <h3>لا توجد مواد</h3>
+                        <p>لم يتم إضافة أي مواد دراسية بعد.</p>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(subject => {
+                const totalLectures = (subject.theory?.length || 0) + (subject.practical?.length || 0);
+                return `
+                    <div class="subject-card" onclick="openSubject('${subject.id}')">
+                        <span class="lecture-count">${totalLectures} محاضرة</span>
+                        <div class="subject-icon"><i class="fas ${subject.icon}"></i></div>
+                        <h3>${subject.title}</h3>
+                        <p>${subject.description}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.openSubject = (id) => {
+            const subject = subjectsData.find(s => s.id === id);
+            if (!subject) return;
+
+            state.currentSubject = subject;
+            state.currentType = 'theory';
+            state.lectureSearchTerm = '';
+
+            document.getElementById('current-subject-title').innerHTML = `<i class="fas ${subject.icon}"></i> ${subject.title}`;
+            document.getElementById('lecture-search').value = '';
+
+            // Reset tabs
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('.tab[data-type="theory"]').classList.add('active');
+
+            renderLectures();
+            showView('lectures');
+        };
+
+        function renderLectures() {
+            const grid = document.getElementById('lectures-grid');
+            const list = state.currentSubject[state.currentType] || [];
+
+            const filtered = list.filter(l =>
+                l.title.toLowerCase().includes(state.lectureSearchTerm)
+            );
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="icon">📭</div>
+                        <h3>لا توجد محاضرات</h3>
+                        <p>${state.lectureSearchTerm ? 'لا توجد نتائج للبحث' : 'لم يتم إضافة محاضرات في هذا القسم بعد.'}</p>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(lecture => `
+                <div class="lecture-card" onclick="openLecture('${lecture.id}')">
+                    <div class="icon"><i class="fas fa-file-lines"></i></div>
+                    <h4>${lecture.title}</h4>
+                    <p>انقر لعرض المحتوى</p>
+                </div>
+            `).join('');
+        }
+
+        window.openLecture = (id) => {
+            if (!state.currentSubject) return;
+
+            const lecture = state.currentSubject[state.currentType]?.find(l => l.id === id);
+            if (!lecture) return;
+
+            document.getElementById('current-lecture-title').textContent = lecture.title;
+            document.getElementById('lecture-body').innerHTML = lecture.content || '';
+
+            // Render files
+            renderFiles(lecture);
+
+            showView('details');
+        };
+
+        function renderFiles(lecture) {
+            const filesList = document.getElementById('files-list');
+            const files = [];
+
+            // Main PDF
+            if (lecture.pdfUrl && lecture.pdfUrl !== '#') {
+                const isDataUrl = lecture.pdfUrl.indexOf('data:') === 0;
+                const fileName = isDataUrl ? 'ملف المحاضرة.pdf' : decodeURIComponent(lecture.pdfUrl.split('/').pop());
+                files.push({
+                    name: fileName,
+                    url: lecture.pdfUrl,
+                    type: fileName.includes('.pdf') ? 'pdf' : 'image',
+                    isMain: true
+                });
+            }
+
+            // Additional files
+            if (lecture.additionalFiles && lecture.additionalFiles.length > 0) {
+                lecture.additionalFiles.forEach(file => {
+                    files.push({
+                        name: file.name,
+                        url: file.url,
+                        type: file.name.includes('.pdf') ? 'pdf' : 'image',
+                        isMain: false
+                    });
+                });
+            }
+
+            if (files.length === 0) {
+                filesList.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 20px;">لا توجد ملفات مرفقة 📭</p>';
+                return;
+            }
+
+            filesList.innerHTML = files.map(file => `
+                <div class="file-item">
+                    <i class="fas ${file.type === 'pdf' ? 'fa-file-pdf' : 'fa-file-image'}"></i>
+                    <div class="file-info">
+                        <span>${file.name}</span>
+                        <small>${file.isMain ? 'الملف الرئيسي' : 'ملف إضافي'}</small>
+                    </div>
+                    <div class="file-actions">
+                        <button class="btn-icon" onclick="viewFile('${file.url}')" title="عرض">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn-icon" onclick="downloadFile('${file.url}', '${file.name}')" title="تحميل">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.viewFile = (url) => {
+            if (url === '#' || !url) {
+                showToast('الملف غير متوفر', 'error');
+                return;
+            }
+
+            // عرض PDF في iframe مباشرة
+            const pdfContainer = document.getElementById('pdf-viewer-container');
+            const pdfIframe = document.getElementById('pdf-iframe');
+
+            if (pdfContainer && pdfIframe) {
+                pdfIframe.src = url;
+                pdfContainer.style.display = 'block';
+                pdfContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                showToast('جاري عرض الملف...', 'success');
+            } else {
+                // fallback: فتح في نافذة جديدة إذا لم يوجد العناصر
+                window.open(url, '_blank');
+            }
+        };
+
+        window.closePdfViewer = () => {
+            const pdfContainer = document.getElementById('pdf-viewer-container');
+            const pdfIframe = document.getElementById('pdf-iframe');
+            if (pdfContainer && pdfIframe) {
+                pdfContainer.style.display = 'none';
+                pdfIframe.src = '';
+            }
+        };
+
+        window.downloadFile = (url, filename) => {
+            if (url === '#' || !url) {
+                showToast('الملف غير متوفر', 'error');
+                return;
+            }
+
+            // For data URLs, create a temporary link
+            if (url.indexOf('data:') === 0) {
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename || 'download';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                // For regular URLs
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename || url.split('/').pop();
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+            showToast('جاري تحميل الملف...', 'success');
+        };
+
+        window.showView = (viewName) => {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(`${viewName}-view`).classList.add('active');
+        };
+
+        // ══════════════════════════════════════════════
+        //  Events
+        // ══════════════════════════════════════════════
+        function bindEvents() {
+            // Mobile toggle
+            document.getElementById('mobile-toggle').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('open');
+                document.getElementById('sidebar-overlay').classList.toggle('active');
+            });
+
+            document.getElementById('sidebar-overlay').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebar-overlay').classList.remove('active');
+            });
+
+            // Logout
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('enjaz_user');
+                localStorage.removeItem('enjaz_token');
+                location.href = 'login.html';
+            });
+
+            // Search subjects
+            document.getElementById('subject-search').addEventListener('input', (e) => {
+                state.subjectSearchTerm = e.target.value.toLowerCase();
+                renderSubjects();
+            });
+
+            // Search lectures
+            document.getElementById('lecture-search').addEventListener('input', (e) => {
+                state.lectureSearchTerm = e.target.value.toLowerCase();
+                renderLectures();
+            });
+
+            // Tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    state.currentType = e.currentTarget.dataset.type;
+                    state.lectureSearchTerm = '';
+                    document.getElementById('lecture-search').value = '';
+                    renderLectures();
+                });
+            });
+        }
+
+        function showToast(msg, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.className = 'toast show';
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // تحديث التنقل النشط
+        function updateActiveNav() {
+            const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'Dashboard';
+            document.querySelectorAll('.nav-item').forEach(item => {
+                const itemPage = item.getAttribute('href')?.replace('.html', '');
+                if (itemPage === currentPage || (currentPage === '' && itemPage === 'Dashboard')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', updateActiveNav);
+    </script>
+</body>
+
+</html>
