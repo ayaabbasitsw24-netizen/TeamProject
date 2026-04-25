@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace StudyLovers.Controllers
 {
     public class DoctorController : Controller
     {
-        // 🔹 عرض لوحة الدكتور
         public IActionResult Dashboard()
         {
             return View();
@@ -12,7 +11,30 @@ namespace StudyLovers.Controllers
 
         public IActionResult DoctorSchedule()
         {
-            return View(); // ✅ يعود لملف DoctorSchedule.cshtml
+            return View(); 
         }
+
+
+       
+        public IActionResult subjects()
+        {
+            return View(); 
+        }
+
+        public IActionResult assignment()
+        {
+            return View();
+        }
+
+        public IActionResult chat()
+        {
+            return View();
+        }
+
+        public IActionResult profile()
+        {
+            return View();
+        }
+
     }
 }
