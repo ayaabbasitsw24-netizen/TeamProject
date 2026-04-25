@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
@@ -199,7 +199,7 @@
                 background: linear-gradient(135deg, var(--primary), var(--primary-dark));
                 color: #fff;
                 font-weight: 600;
-                box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 40%, transparent);
+                box-shadow: 0 4px 14px ;
             }
 
                 .nav-item.active i {
@@ -756,25 +756,23 @@
                 <a href="DoctorSchedule" class="nav-item" data-page="schedule">
                     <i class="fas fa-calendar-alt"></i> <span>المخطط الأسبوعي</span>
                 </a>
-                <a href="lectures.html" class="nav-item" data-page="lectures">
-                    <i class="fas fa-video"></i> <span>محاضراتي</span>
+                <a href="subjects" class="nav-item" data-page="subjects">
+                    <i class="fas fa-video"></i> <span>المحاضرات</span>
                 </a>
-                <a href="assignments.html" class="nav-item" data-page="assignments">
+                <a href="assignment" class="nav-item" data-page="assignment">
                     <i class="fas fa-tasks"></i> <span>التكاليف</span>
                 </a>
-                <a href="students.html" class="nav-item" data-page="students">
-                    <i class="fas fa-users"></i> <span>الطلاب</span>
+                <a href="chat" class="nav-item" data-page="chat">
+                    <i class="fas fa-users"></i> <span>ركن الدردشة  </span>
                 </a>
-                <a href="announcements.html" class="nav-item" data-page="announcements">
-                    <i class="fas fa-bell"></i> <span>الإعلانات</span>
-                </a>
-                <a href="profile.html" class="nav-item" data-page="profile">
+               
+                <a href="profile" class="nav-item" data-page="profile">
                     <i class="fas fa-user-circle"></i> <span>ملفي الشخصي</span>
                 </a>
             </nav>
 
 
-
+            
 
             <div class="sidebar-footer">
                 <div class="user-mini">
@@ -883,10 +881,7 @@
                                 <i class="fas fa-plus-circle"></i>
                                 <span>إضافة تكليف</span>
                             </a>
-                            <a href="students.html" class="qa-card">
-                                <i class="fas fa-users"></i>
-                                <span>الطلاب</span>
-                            </a>
+                           
                         </div>
                     </div>
                 </div>
@@ -895,6 +890,7 @@
     </div>
 
     <div id="toast" class="toast"></div>
+
 
     <script>
         function getLocalStorage(key, fallback = {}) {
