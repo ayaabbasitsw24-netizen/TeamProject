@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملفي الشخصي — عشاق الدراسة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ── Design System (مدمج) ── */
+        .theme-blue {
+            --primary: #4e7bef;
+            --primary-light: #7ea8f5;
+            --primary-dark: #2d57cc;
+            --accent-bg: rgba(78, 123, 239, 0.07);
+            --sidebar-bg: #f7f9ff;
+            --sidebar-text: #354060;
+            --bg: #f0f4fb;
+            --card-bg: #ffffff;
+            --text-main: #1a2540;
+            --text-muted: #6c7a95;
+            --border: #e3e8f4;
+            --shadow-sm: 0 2px 8px rgba(78, 123, 239, .08);
+            --shadow-md: 0 6px 24px rgba(78, 123, 239, .13);
+            --shadow-lg: 0 12px 45px rgba(78, 123, 239, .18);
+        }
+
+        .theme-purple {
+            --primary: #7c50e0;
+            --primary-light: #a484ee;
+            --primary-dark: #5630b5;
+            --accent-bg: rgba(124, 80, 224, 0.07);
+            --sidebar-bg: #f8f5ff;
+            --sidebar-text: #3a2060;
+            --bg: #f3f0fd;
+            --card-bg: #ffffff;
+            --text-main: #220e45;
+            --text-muted: #7060a0;
+            --border: #e4d8f8;
+            --shadow-sm: 0 2px 8px rgba(124, 80, 224, .08);
+            --shadow-md: 0 6px 24px rgba(124, 80, 224, .13);
+            --shadow-lg: 0 12px 45px rgba(124, 80, 224, .18);
+        }
+
+        .theme-green {
+            --primary: #1db27a;
+            --primary-light: #4fcda0;
+            --primary-dark: #128a5e;
+            --accent-bg: rgba(29, 178, 122, 0.07);
+            --sidebar-bg: #f3fbf7;
+            --sidebar-text: #1a3d2e;
+            --bg: #eef9f4;
+            --card-bg: #ffffff;
+            --text-main: #0d2e20;
+            --text-muted: #5a8070;
+            --border: #c8eedc;
+            --shadow-sm: 0 2px 8px rgba(29, 178, 122, .08);
+            --shadow-md: 0 6px 24px rgba(29, 178, 122, .13);
+            --shadow-lg: 0 12px 45px rgba(29, 178, 122, .18);
+        }
+
+        .theme-dark {
+            --primary: #8b7cf8;
+            --primary-light: #a89ef9;
+            --primary-dark: #6a5cd4;
+            --accent-bg: rgba(139, 124, 248, .12);
+            --sidebar-bg: #1b1b30;
+            --sidebar-text: #c4c4e0;
+            --bg: #111120;
+            --card-bg: #1e1e35;
+            --text-main: #e6e6fa;
+            --text-muted: #8080aa;
+            --border: rgba(255, 255, 255, .08);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, .3);
+            --shadow-md: 0 6px 24px rgba(0, 0, 0, .4);
+            --shadow-lg: 0 12px 45px rgba(0, 0, 0, .55);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            direction: rtl;
+            transition: background .35s, color .35s
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        .app-wrapper {
+            display: flex;
+            min-height: 100vh
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            z-index: 200;
+            transition: transform .3s cubic-bezier(.4, 0, .2, 1), box-shadow .3s;
+            box-shadow: -2px 0 16px rgba(0, 0, 0, .06);
+            overflow-y: auto
+        }
+
+        .sidebar-header {
+            padding: 22px 18px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .logo-icon {
+            font-size: 1.6rem
+        }
+
+        .logo-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -.3px
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 12px 10px
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 4px;
+            color: var(--sidebar-text);
+            font-size: .95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+            .nav-item i {
+                width: 20px;
+                text-align: center;
+                font-size: 1rem;
+                opacity: .7;
+                transition: opacity .2s
+            }
+
+            .nav-item:hover {
+                background: var(--accent-bg);
+                color: var(--primary)
+            }
+
+            .nav-item.active {
+                background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+                color: #fff;
+                font-weight: 600;
+                box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 40%, transparent);
+            }
+
+                .nav-item.active i {
+                    opacity: 1;
+                    color: #fff
+                }
+
+        .sidebar-footer {
+            padding: 14px 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .user-mini {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden
+        }
+
+        .user-mini-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            border: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            overflow: hidden
+        }
+
+        .user-mini-info {
+            overflow: hidden
+        }
+
+            .user-mini-info span {
+                font-size: .85rem;
+                font-weight: 600;
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis
+            }
+
+            .user-mini-info small {
+                font-size: .73rem;
+                color: var(--text-muted)
+            }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1rem;
+            padding: 6px 8px;
+            border-radius: 8px;
+            transition: all .2s
+        }
+
+            .logout-btn:hover {
+                background: #fee2e2;
+                color: #ef4444
+            }
+
+        .main-wrapper {
+            margin-right: 260px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh
+        }
+
+        .top-header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm)
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .page-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main)
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            padding: 4px 6px;
+            border-radius: 8px
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+            .header-user span {
+                font-size: .9rem;
+                color: var(--text-muted)
+            }
+
+        .header-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            border: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            overflow: hidden
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 20px 24px;
+            overflow-y: auto
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+            .page-header h2 {
+                font-size: 1.45rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                gap: 8px
+            }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: .95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .15);
+            transition: all .25s
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                filter: brightness(1.1);
+                box-shadow: 0 8px 22px rgba(0, 0, 0, .22)
+            }
+
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 26px;
+            border-radius: 30px;
+            font-size: .9rem;
+            z-index: 9999;
+            transition: transform .35s cubic-bezier(.175, .885, .32, 1.275);
+            white-space: nowrap;
+            pointer-events: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .2)
+        }
+
+            .toast.show {
+                transform: translateX(-50%) translateY(0)
+            }
+
+            .toast.success {
+                background: #16a34a
+            }
+
+            .toast.error {
+                background: #dc2626
+            }
+
+            .toast.info {
+                background: var(--primary)
+            }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            z-index: 150;
+            backdrop-filter: blur(3px)
+        }
+
+            .sidebar-overlay.active {
+                display: block
+            }
+
+        .doctor-only {
+            display: none
+        }
+
+        .profile-header-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light), var(--primary-dark));
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+            border-radius: 22px;
+            padding: 36px 28px;
+            text-align: center;
+            color: #fff;
+            margin-bottom: 22px;
+            box-shadow: var(--shadow-lg)
+        }
+
+        .avatar-display {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .2);
+            border: 3px solid rgba(255, 255, 255, .6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            margin: 0 auto 12px;
+            overflow: hidden
+        }
+
+            .avatar-display img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover
+            }
+
+        .avatar-upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, .2);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .4);
+            padding: 7px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: .85rem;
+            transition: all .2s;
+            margin-top: 10px
+        }
+
+            .avatar-upload-btn:hover {
+                background: rgba(255, 255, 255, .35)
+            }
+
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm)
+        }
+
+        .profile-section {
+            margin-bottom: 24px
+        }
+
+            .profile-section:last-child {
+                margin-bottom: 0
+            }
+
+            .profile-section label {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 600;
+                font-size: .9rem;
+                color: var(--text-muted);
+                margin-bottom: 12px
+            }
+
+        .theme-selector {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap
+        }
+
+        .theme-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .12)
+        }
+
+            .theme-btn:hover {
+                transform: scale(1.12)
+            }
+
+            .theme-btn.active {
+                transform: scale(1.12);
+                border-color: var(--text-main);
+                box-shadow: 0 0 0 4px;
+            }
+
+            .theme-btn.blue {
+                background: linear-gradient(135deg, #4e7bef, #7ea8f5)
+            }
+
+            .theme-btn.purple {
+                background: linear-gradient(135deg, #7c50e0, #a484ee)
+            }
+
+            .theme-btn.green {
+                background: linear-gradient(135deg, #1db27a, #4fcda0)
+            }
+
+            .theme-btn.dark {
+                background: linear-gradient(135deg, #1b1b30, #8b7cf8)
+            }
+
+        .points-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #fef9e7, #fef3c7);
+            border: 1px solid #fde68a;
+            border-radius: 14px;
+            padding: 16px;
+            color: #92400e;
+            font-size: .92rem;
+            margin-bottom: 20px
+        }
+
+            .points-banner i {
+                color: #f59e0b;
+                font-size: 1.2rem
+            }
+
+        @@keyframes gradientShift {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 0% 50%
+            }
+        }
+
+        @@media (max-width: 1366px) {
+            .sidebar {
+                width: 240px
+            }
+
+            .main-wrapper {
+                margin-right: 240px
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%)
+            }
+
+                .sidebar.open {
+                    transform: translateX(0)
+                }
+
+            .main-wrapper {
+                margin-right: 0
+            }
+
+            .mobile-toggle {
+                display: flex
+            }
+
+            .content-area {
+                padding: 18px 16px
+            }
+
+            .top-header {
+                padding: 12px 16px
+            }
+        }
+    </style>
+    <style>
+        /* ── Profile Cover ── */
+        .profile-cover {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 20px;
+            padding: 40px 36px 70px;
+            margin-bottom: -50px;
+            position: relative;
+        }
+
+        .profile-cover-title {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .profile-cover h1 {
+            color: white;
+            font-size: 1.5rem;
+            margin-top: 4px;
+        }
+
+        /* ── Avatar Row ── */
+        .profile-avatar-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            padding: 0 36px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-avatar-wrap {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            border: 4px solid var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            font-weight: 700;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+            transition: 0.2s;
+        }
+
+            .profile-avatar-wrap:hover {
+                transform: scale(1.06);
+            }
+
+        .avatar-edit-btn {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--card-bg);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .profile-meta {
+            padding-bottom: 10px;
+        }
+
+            .profile-meta h2 {
+                font-size: 1.5rem;
+                font-weight: 800;
+            }
+
+            .profile-meta p {
+                color: var(--text-muted);
+                font-size: 0.9rem;
+            }
+
+        /* ── Stats Row ── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .mini-stat {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid var(--border);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: 0.2s;
+        }
+
+            .mini-stat:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-md);
+            }
+
+            .mini-stat .val {
+                font-size: 1.8rem;
+                font-weight: 800;
+                color: var(--primary);
+            }
+
+            .mini-stat .lbl {
+                font-size: 0.78rem;
+                color: var(--text-muted);
+                margin-top: 3px;
+            }
+
+        /* ── Profile Grid ── */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .profile-section {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+            .profile-section h3 {
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--primary);
+                border-bottom: 1px solid var(--border);
+                padding-bottom: 12px;
+            }
+
+        .form-g {
+            margin-bottom: 14px;
+        }
+
+            .form-g label {
+                display: block;
+                font-size: 0.82rem;
+                margin-bottom: 6px;
+                color: var(--text-muted);
+                font-weight: 600;
+            }
+
+            .form-g input {
+                width: 100%;
+                padding: 11px 14px;
+                border-radius: 10px;
+                border: 1.5px solid var(--border);
+                font-family: inherit;
+                background: var(--bg);
+                outline: none;
+                transition: 0.2s;
+            }
+
+                .form-g input:focus {
+                    border-color: var(--primary);
+                    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+                }
+
+                .form-g input:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
+
+        /* ── Theme Selector ── */
+        .theme-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .theme-option {
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+            .theme-option:hover {
+                border-color: var(--primary-light);
+            }
+
+            .theme-option.selected {
+                border-color: var(--primary);
+                background: var(--accent-bg);
+            }
+
+        .theme-swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .theme-option span {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        @@media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-avatar-row {
+                padding: 0 16px;
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-blue">
+    <div class="sidebar-overlay"></div>
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo"><span class="logo-icon">📚</span><span class="logo-text">عشاق الدراسة</span></div>
+            </div>
+
+
+
+            <nav class="sidebar-nav">
+                <a href="Dashboard" class="nav-item" data-page="home">
+                    <i class="fas fa-home"></i> <span>الرئيسية</span>
+                </a>
+                <a href="StudentSchedule" class="nav-item" data-page="StudentSchedule">
+                    <i class="fas fa-calendar-alt"></i> <span>المخطط الأسبوعي</span>
+                </a>
+                <a href="lectures" class="nav-item" data-page="lectures">
+                    <i class="fas fa-video"></i> <span>المحاضرات</span>
+                </a>
+                <a href="assignment" class="nav-item" data-page="assignment">
+                    <i class="fas fa-tasks"></i> <span>الواجبات</span>
+                </a>
+                <a href="chat" class="nav-item" data-page="chat">
+                    <i class="fas fa-users"></i> <span>ركن الدردشة</span>
+                </a>
+                <a href="profile" class="nav-item active" data-page="profile">
+                    <i class="fas fa-user-circle"></i> <span>ملفي الشخصي</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-mini">
+                    <div class="user-mini-avatar" id="sidebar-avatar">👤</div>
+                    <div class="user-mini-info">
+                        <span id="sidebar-name">المستخدم</span><small id="sidebar-role">طالب</small>
+                    </div>
+                </div>
+                <button class="logout-btn" id="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-toggle" id="mobile-toggle"><i class="fas fa-bars"></i></button>
+                    <h1 class="page-title">ملفي الشخصي</h1>
+                </div>
+                <div class="header-right">
+                    <div class="header-user">
+                        <span id="header-name">مرحباً!</span>
+                        <div class="header-avatar" id="header-avatar">👤</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content-area">
+                <!-- غلاف البروفايل -->
+                <div class="profile-cover">
+                    <div class="profile-cover-title">ملف المستخدم</div>
+                    <h1 id="cover-name">👤 الاسم</h1>
+                </div>
+
+                <!-- صف الأفاتار -->
+                <div class="profile-avatar-row">
+                    <div class="profile-avatar-wrap" id="profile-avatar-display" title="انقر لتغيير الصورة">
+                        <img id="avatar-image" src="" alt="" style="display:none;width:100%;height:100%;border-radius:50%;object-fit:cover;">
+                        <span id="avatar-initials">?</span>
+                        <div class="avatar-edit-btn"><i class="fas fa-camera"></i></div>
+                    </div>
+                    <input type="file" id="avatar-input" accept="image/*" style="display:none;">
+                    <div class="profile-meta">
+                        <h2 id="profile-display-name">اسم المستخدم</h2>
+                        <p id="profile-display-role">طالب</p>
+                    </div>
+                </div>
+
+                <!-- محتوى الملف -->
+                <div class="profile-grid">
+                    <!-- يسار: الإعدادات -->
+                    <div style="display:flex;flex-direction:column;gap:20px;">
+                        <!-- بيانات الحساب -->
+                        <div class="profile-section">
+                            <h3><i class="fas fa-user-edit"></i> بيانات الحساب</h3>
+                            <div class="form-g">
+                                <label>الاسم الكامل</label>
+                                <input type="text" id="edit-name" placeholder="اسمك الكامل">
+                            </div>
+                            <div class="form-g">
+                                <label>البريد الإلكتروني</label>
+                                <input type="email" id="edit-email" disabled>
+                            </div>
+                            <div class="form-g">
+                                <label>المسمى الدراسي</label>
+                                <input type="text" id="edit-title" placeholder="مثال: طالب في السنة الثالثة - حوسبة">
+                            </div>
+                            <button class="btn-primary" id="save-profile-btn" style="margin-top:8px;">
+                                <i class="fas fa-save"></i> حفظ التغييرات
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- يمين: المظهر -->
+                    <div style="display:flex;flex-direction:column;gap:20px;">
+                        <!-- اختيار السمة -->
+                        <div class="profile-section">
+                            <h3><i class="fas fa-palette"></i> المظهر والسمة</h3>
+                            <div class="theme-grid" id="theme-grid">
+                                <div class="theme-option selected" data-theme="blue">
+                                    <div class="theme-swatch" style="background:#4e7bef;"></div>
+                                    <span>أزرق</span>
+                                </div>
+                                <div class="theme-option" data-theme="purple">
+                                    <div class="theme-swatch" style="background:#7c50e0;"></div>
+                                    <span>بنفسجي</span>
+                                </div>
+                                <div class="theme-option" data-theme="green">
+                                    <div class="theme-swatch" style="background:#1db27a;"></div>
+                                    <span>أخضر</span>
+                                </div>
+                                <div class="theme-option" data-theme="dark">
+                                    <div class="theme-swatch" style="background:#1e1e35;"></div>
+                                    <span>ليلي</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script type="module">
+        // ── API inline ──
+        const _BASE = `http://${window.location.hostname}:5059/api`;
+        function _getToken() { return localStorage.getItem('sl_token') || '' }
+        async function _req(method, path, body = null) { const h = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${_getToken()}` }; const o = { method, headers: h }; if (body) o.body = JSON.stringify(body); try { const r = await fetch(`${_BASE}${path}`, o); const t = await r.text(); let d; try { d = t ? JSON.parse(t) : {} } catch { throw new Error(t || `خطأ: ${r.status}`) } if (!r.ok) throw new Error(d.error || d.message || `خطأ: ${r.status}`); return d } catch (e) { if (path === '/auth/me') { const u = localStorage.getItem('sl_user'); if (u) return { user: JSON.parse(u) } } throw e } }
+        const API = { auth: { async logout() { try { await _req('POST', '/auth/logout', {}) } catch { } localStorage.removeItem('sl_token'); localStorage.removeItem('sl_user'); window.location.href = 'login.html' }, async getSession() { const t = _getToken(); if (!t) return { valid: false }; try { const d = await _req('GET', '/auth/me'); return { valid: true, user: d.user, role: d.user.role } } catch { const u = localStorage.getItem('sl_user'); if (u) return { valid: true, user: JSON.parse(u), role: JSON.parse(u).role }; return { valid: false } } } } };
+        // ── Auth Guard inline ──
+        async function requireAuth() { const t = localStorage.getItem('sl_token'); if (!t) { window.location.href = 'login.html'; throw new Error('غير مسجّل') } const s = await API.auth.getSession(); if (!s.valid) { localStorage.removeItem('sl_token'); localStorage.removeItem('sl_user'); window.location.href = 'login.html'; throw new Error('انتهت الجلسة') } _injectUserUI(s.user); return s }
+        async function logout() { await API.auth.logout() }
+        function _injectUserUI(u) { if (!u) return; const sn = document.getElementById('sidebar-name'); if (sn) sn.textContent = u.name; const hn = document.getElementById('header-name'); if (hn) hn.textContent = `مرحباً، ${u.name}!`; const sr = document.getElementById('sidebar-role'); if (sr) sr.textContent = { doctor: 'دكتور', student: 'طالب' }[u.role] || u.role; const i = (u.name || 'U').charAt(0).toUpperCase(); const sa = document.getElementById('sidebar-avatar'); if (sa) { sa.textContent = i; sa.style.cssText += 'display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;background:var(--primary);color:white;' } const ha = document.getElementById('header-avatar'); if (ha) { ha.textContent = i; ha.style.cssText += 'display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;background:var(--primary);color:white;' } _applyRoleUI(u.role) }
+        function _applyRoleUI(r) { document.querySelectorAll('.doctor-only').forEach(el => el.style.display = r === 'doctor' ? '' : 'none'); document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none'); document.querySelectorAll('.student-only').forEach(el => el.style.display = r === 'student' ? '' : 'none') }
+
+        let currentUser = null;
+        let userProfile = {};
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const session = await requireAuth();
+                currentUser = session.user;
+                userProfile = JSON.parse(localStorage.getItem('enjaz_profile') || '{}');
+                fillData();
+                bindEvents();
+            } catch (e) { console.warn(e.message); }
+        });
+
+        function fillData() {
+            // Cover & Meta
+            const initial = (currentUser.name || 'U').charAt(0).toUpperCase();
+            document.getElementById('cover-name').textContent = `👤 ${currentUser.name}`;
+            document.getElementById('avatar-initials').textContent = initial;
+            document.getElementById('profile-display-name').textContent = currentUser.name;
+            document.getElementById('profile-display-role').textContent =
+                userProfile.title || (currentUser.role === 'doctor' ? '👨‍🏫 دكتور جامعي' : '🎓 طالب علم');
+
+            // Avatar Image
+            const savedAvatar = userProfile.avatar || '';
+            if (savedAvatar) {
+                const avatarImg = document.getElementById('avatar-image');
+                avatarImg.src = savedAvatar;
+                avatarImg.style.display = 'block';
+                document.getElementById('avatar-initials').style.display = 'none';
+            }
+
+            // Form
+            document.getElementById('edit-name').value = currentUser.name;
+            document.getElementById('edit-email').value = currentUser.email;
+            document.getElementById('edit-title').value = userProfile.title || '';
+
+            // Theme
+            const savedTheme = userProfile.theme || 'blue';
+            applyTheme(savedTheme);
+            document.querySelectorAll('.theme-option').forEach(opt => {
+                opt.classList.toggle('selected', opt.dataset.theme === savedTheme);
+            });
+        }
+
+        function bindEvents() {
+            document.getElementById('logout-btn')?.addEventListener('click', logout);
+            document.getElementById('save-profile-btn')?.addEventListener('click', saveProfile);
+
+            // Avatar change
+            document.getElementById('profile-avatar-display')?.addEventListener('click', () => {
+                document.getElementById('avatar-input').click();
+            });
+
+            document.getElementById('avatar-input')?.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) {
+                        showToast('حجم الصورة يجب أن يكون أقل من 2MB', 'error');
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const avatarImg = document.getElementById('avatar-image');
+                        avatarImg.src = event.target.result;
+                        avatarImg.style.display = 'block';
+                        document.getElementById('avatar-initials').style.display = 'none';
+                        userProfile.avatar = event.target.result;
+                        localStorage.setItem('enjaz_profile', JSON.stringify(userProfile));
+                        showToast('تم تحديث الصورة ✅', 'success');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            document.querySelectorAll('.theme-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const theme = opt.dataset.theme;
+                    userProfile.theme = theme;
+                    applyTheme(theme);
+                    document.querySelectorAll('.theme-option').forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+                    localStorage.setItem('enjaz_profile', JSON.stringify(userProfile));
+                    showToast('تم تغيير المظهر ✨', 'success');
+                });
+            });
+
+            document.getElementById('mobile-toggle')?.addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('open');
+                document.querySelector('.sidebar-overlay')?.classList.toggle('active');
+            });
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('edit-name').value.trim();
+            const title = document.getElementById('edit-title').value.trim();
+            if (!name) { showToast('الاسم مطلوب', 'error'); return; }
+
+            currentUser.name = name;
+            userProfile.title = title;
+            localStorage.setItem('enjaz_user', JSON.stringify(currentUser));
+            localStorage.setItem('enjaz_profile', JSON.stringify(userProfile));
+            fillData();
+            showToast('تم حفظ بياناتك بنجاح ✅', 'success');
+        }
+
+        function applyTheme(theme) {
+            document.body.className = `theme-${theme}`;
+        }
+
+        function showToast(msg, type = 'info') {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.className = `toast ${type} show`;
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        function updateActiveNav() {
+            const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'Dashboard';
+            document.querySelectorAll('.nav-item').forEach(item => {
+                const itemPage = item.getAttribute('href')?.replace('.html', '');
+                if (itemPage === currentPage || (currentPage === '' && itemPage === 'Dashboard')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
