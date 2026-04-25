@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسليم الواجبات — عشاق الدراسة</title>
+    <meta name="description" content="صفحة تسليم الواجبات — رفع إجابات الطالب للتكاليف الدراسية">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+                                   Design System — Unified Tokens
+                                ============================================================ */
+        .theme-blue {
+            --primary: #3b82f6;
+            --primary-light: #60a5fa;
+            --primary-dark: #1e40af;
+            --accent-bg: rgba(59, 130, 246, 0.1);
+            --sidebar-bg: #dbeafe;
+            --sidebar-text: #0c2d6b;
+            --bg: #eff6ff;
+            --card-bg: #f0f9ff;
+            --text-main: #0c2d6b;
+            --text-muted: #3b82f6;
+            --border: #bfdbfe;
+            --shadow-sm: 0 2px 8px rgba(59, 130, 246, .08);
+            --shadow-md: 0 6px 24px rgba(59, 130, 246, .12);
+            --shadow-lg: 0 12px 45px rgba(59, 130, 246, .15);
+        }
+
+        .theme-purple {
+            --primary: #a78bfa;
+            --primary-light: #c4b5fd;
+            --primary-dark: #7e22ce;
+            --accent-bg: rgba(167, 139, 250, 0.1);
+            --sidebar-bg: #f3e8ff;
+            --sidebar-text: #5b21b6;
+            --bg: #faf5ff;
+            --card-bg: #fef3ff;
+            --text-main: #5b21b6;
+            --text-muted: #a78bfa;
+            --border: #e9d5ff;
+            --shadow-sm: 0 2px 8px rgba(167, 139, 250, .08);
+            --shadow-md: 0 6px 24px rgba(167, 139, 250, .12);
+            --shadow-lg: 0 12px 45px rgba(167, 139, 250, .15);
+        }
+
+        .theme-green {
+            --primary: #10b981;
+            --primary-light: #6ee7b7;
+            --primary-dark: #047857;
+            --accent-bg: rgba(16, 185, 129, 0.1);
+            --sidebar-bg: #d1fae5;
+            --sidebar-text: #064e3b;
+            --bg: #f0fdf4;
+            --card-bg: #f7fefc;
+            --text-main: #064e3b;
+            --text-muted: #10b981;
+            --border: #a7f3d0;
+            --shadow-sm: 0 2px 8px rgba(16, 185, 129, .08);
+            --shadow-md: 0 6px 24px rgba(16, 185, 129, .12);
+            --shadow-lg: 0 12px 45px rgba(16, 185, 129, .15);
+        }
+
+        .theme-dark {
+            --primary: #818cf8;
+            --primary-light: #a5b4fc;
+            --primary-dark: #4f46e5;
+            --accent-bg: rgba(129, 140, 248, 0.12);
+            --sidebar-bg: #111827;
+            --sidebar-text: #f3f4f6;
+            --bg: #1f2937;
+            --card-bg: #374151;
+            --text-main: #f3f4f6;
+            --text-muted: #d1d5db;
+            --border: #4b5563;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, .3);
+            --shadow-md: 0 6px 24px rgba(0, 0, 0, .4);
+            --shadow-lg: 0 12px 45px rgba(0, 0, 0, .55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            direction: rtl;
+            transition: background 0.35s, color 0.35s;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ─── App Layout ─── */
+        .app-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ─── Sidebar ─── */
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar-bg);
+            border-left: 2px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            z-index: 200;
+            transition: transform 0.3s cubic-bezier(.4, 0, .2, 1), box-shadow 0.3s;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, .12);
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px 18px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 1.6rem;
+        }
+
+        .logo-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.3px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 12px 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 4px;
+            color: var(--sidebar-text);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+            .nav-item i {
+                width: 20px;
+                text-align: center;
+                font-size: 1rem;
+                opacity: .7;
+                transition: opacity .2s;
+            }
+
+            .nav-item:hover {
+                background: var(--accent-bg);
+                color: var(--primary);
+            }
+
+                .nav-item:hover i {
+                    opacity: 1;
+                    color: var(--primary);
+                }
+
+            .nav-item.active {
+                background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+                color: #fff;
+                font-weight: 600;
+                box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 40%, transparent);
+            }
+
+                .nav-item.active i {
+                    opacity: 1;
+                    color: #fff;
+                }
+
+        .sidebar-footer {
+            padding: 14px 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-mini {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        .user-mini-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            border: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .user-mini-info span {
+            font-size: .85rem;
+            font-weight: 600;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-mini-info small {
+            font-size: .73rem;
+            color: var(--text-muted);
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1rem;
+            padding: 6px 8px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+            .logout-btn:hover {
+                background: #fee2e2;
+                color: #ef4444;
+            }
+
+        /* ─── Main Wrapper ─── */
+        .main-wrapper {
+            margin-right: 260px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .top-header {
+            background: var(--card-bg);
+            border-bottom: 2px solid var(--border);
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .page-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            padding: 4px 6px;
+            border-radius: 8px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .header-user span {
+                font-size: .9rem;
+                color: var(--text-muted);
+            }
+
+        .header-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            border: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 24px 28px;
+            overflow-y: auto;
+        }
+
+        /* ─── Overlay ─── */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            z-index: 150;
+            backdrop-filter: blur(3px);
+        }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+        /* ─── Buttons ─── */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+            padding: 11px 24px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: .95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+            transition: all 0.25s;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                filter: brightness(1.1);
+                box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+            }
+
+            .btn-primary:active {
+                transform: translateY(0);
+            }
+
+        .btn-secondary {
+            background: var(--accent-bg);
+            color: var(--primary);
+            border: 1.5px solid var(--primary-light);
+            padding: 9px 18px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: .9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.2s;
+        }
+
+            .btn-secondary:hover {
+                background: var(--primary);
+                color: white;
+            }
+
+        /* ─── Toast ─── */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 26px;
+            border-radius: 30px;
+            font-size: .9rem;
+            z-index: 9999;
+            transition: transform .35s cubic-bezier(.175, .885, .32, 1.275);
+            white-space: nowrap;
+            pointer-events: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .2);
+        }
+
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .toast.success {
+                background: #16a34a;
+            }
+
+            .toast.error {
+                background: #dc2626;
+            }
+
+            .toast.info {
+                background: var(--primary);
+            }
+
+        /* ─── Stats Bar ─── */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1.5px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-3px);
+                box-shadow: var(--shadow-md);
+            }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: var(--accent-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .stat-info .val {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .stat-info .lbl {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        /* ─── Role Banner ─── */
+        .role-banner {
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+            .role-banner.student {
+                background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(4, 120, 87, 0.06));
+                border: 1.5px solid #6ee7b7;
+                color: #047857;
+            }
+
+            .role-banner i {
+                font-size: 1.4rem;
+            }
+
+        /* ─── Page Header ─── */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+
+            .page-header h2 {
+                font-size: 1.3rem;
+                font-weight: 800;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+        /* ─── Filter Toolbar ─── */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 7px 16px;
+            border-radius: 20px;
+            border: 1.5px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+            .filter-btn.active,
+            .filter-btn:hover {
+                background: var(--primary);
+                color: white;
+                border-color: var(--primary);
+            }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 9px 16px;
+            border-radius: 20px;
+            border: 1.5px solid var(--border);
+            font-family: inherit;
+            background: var(--card-bg);
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.2s;
+        }
+
+            .search-box:focus {
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px var(--accent-bg);
+            }
+
+        /* ─── Assignment Cards ─── */
+        .assignments-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .assignment-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            border: 1.5px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            padding: 22px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 18px;
+            align-items: start;
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: slideUp 0.35s ease both;
+        }
+
+            .assignment-card:hover {
+                transform: translateY(-3px);
+                box-shadow: var(--shadow-md);
+            }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .assign-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: var(--accent-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+
+        .assign-body {
+            flex: 1;
+        }
+
+        .assign-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .assign-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .assign-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .assign-tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tag-subject {
+            background: var(--accent-bg);
+            color: var(--primary);
+            border: 1px solid var(--primary-light);
+        }
+
+        .tag-due {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fcd34d;
+        }
+
+            .tag-due.overdue {
+                background: #fee2e2;
+                color: #b91c1c;
+                border-color: #fca5a5;
+            }
+
+            .tag-due.soon {
+                background: #fff7ed;
+                color: #c2410c;
+                border-color: #fdba74;
+            }
+
+        .tag-urgent {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+        }
+
+        .tag-normal {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #86efac;
+        }
+
+        .tag-low {
+            background: #f8fafc;
+            color: #64748b;
+            border: 1px solid #cbd5e1;
+        }
+
+        .tag-from {
+            background: #ede9fe;
+            color: #6d28d9;
+            border: 1px solid #c4b5fd;
+        }
+
+        .assign-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-end;
+            flex-shrink: 0;
+        }
+
+        /* ─── Submit Button Status ─── */
+        .submit-btn {
+            padding: 9px 18px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+            .submit-btn.pending {
+                background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+                color: white;
+                box-shadow: 0 3px 10px color-mix(in srgb, var(--primary) 35%, transparent);
+            }
+
+                .submit-btn.pending:hover {
+                    filter: brightness(1.1);
+                    transform: translateY(-1px);
+                }
+
+            .submit-btn.submitted {
+                background: #dcfce7;
+                color: #15803d;
+                border: 1.5px solid #86efac;
+                cursor: default;
+            }
+
+        /* ─── Empty State ─── */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+            .empty-state .empty-icon {
+                font-size: 3.5rem;
+                margin-bottom: 16px;
+                opacity: 0.5;
+            }
+
+            .empty-state h3 {
+                font-size: 1.1rem;
+                font-weight: 700;
+                margin-bottom: 6px;
+            }
+
+            .empty-state p {
+                font-size: 0.88rem;
+            }
+
+        /* ─── Modal Overlay ─── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 500;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+            .modal-overlay.open {
+                display: flex;
+            }
+
+        .modal-card {
+            background: var(--card-bg);
+            border-radius: 22px;
+            border: 1.5px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            padding: 32px;
+            width: 90%;
+            max-width: 580px;
+            max-height: 92vh;
+            overflow-y: auto;
+            animation: popIn 0.3s cubic-bezier(.175, .885, .32, 1.275);
+        }
+
+        @@keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-card h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+            .form-group label {
+                display: block;
+                font-size: 0.85rem;
+                margin-bottom: 7px;
+                color: var(--text-muted);
+                font-weight: 700;
+            }
+
+            .form-group textarea {
+                width: 100%;
+                padding: 12px 16px;
+                border-radius: 12px;
+                border: 1.5px solid var(--border);
+                font-family: inherit;
+                background: var(--bg);
+                outline: none;
+                transition: 0.2s;
+                color: var(--text-main);
+                font-size: 0.9rem;
+                resize: vertical;
+                min-height: 100px;
+            }
+
+                .form-group textarea:focus {
+                    border-color: var(--primary);
+                    box-shadow: 0 0 0 3px var(--accent-bg);
+                }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        /* ─── File Drop Zone ─── */
+        .file-drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            background: var(--bg);
+        }
+
+            .file-drop-zone:hover,
+            .file-drop-zone.dragover {
+                border-color: var(--primary);
+                background: var(--accent-bg);
+            }
+
+            .file-drop-zone i {
+                font-size: 2rem;
+                color: var(--primary);
+                margin-bottom: 10px;
+            }
+
+            .file-drop-zone p {
+                font-size: 0.88rem;
+                color: var(--text-muted);
+            }
+
+            .file-drop-zone input[type="file"] {
+                display: none;
+            }
+
+        .file-chosen {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* ─── Responsive ─── */
+        @@media (max-width: 900px) {
+            .stats-bar {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%);
+            }
+
+                .sidebar.open {
+                    transform: translateX(0);
+                    box-shadow: -8px 0 40px rgba(0, 0, 0, .25);
+                }
+
+            .main-wrapper {
+                margin-right: 0;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .content-area {
+                padding: 18px 16px;
+            }
+
+            .assignment-card {
+                grid-template-columns: 1fr;
+            }
+
+            .assign-actions {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .stats-bar {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-green">
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <div class="app-wrapper">
+
+        <!-- ══════════ SIDEBAR ══════════ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">📚</span>
+                    <span class="logo-text">عشاق الدراسة</span>
+                </div>
+            </div>
+
+
+
+
+            <nav class="sidebar-nav">
+                <a href="Dashboard" class="nav-item" data-page="home">
+                    <i class="fas fa-home"></i> <span>الرئيسية</span>
+                </a>
+                <a href="StudentSchedule" class="nav-item" data-page="StudentSchedule">
+                    <i class="fas fa-calendar-alt"></i> <span>المخطط الأسبوعي</span>
+                </a>
+                <a href="lectures" class="nav-item" data-page="lectures">
+                    <i class="fas fa-video"></i> <span>المحاضرات</span>
+                </a>
+                <a href="assignment" class="nav-item active" data-page="assignment">
+                    <i class="fas fa-tasks"></i> <span>الواجبات</span>
+                </a>
+                <a href="chat" class="nav-item" data-page="chat">
+                    <i class="fas fa-users"></i> <span>ركن الدردشة</span>
+                </a>
+                <a href="profile" class="nav-item" data-page="profile">
+                    <i class="fas fa-user-circle"></i> <span>ملفي الشخصي</span>
+                </a>
+            </nav>
+
+
+
+            <div class="sidebar-footer">
+                <div class="user-mini">
+                    <div class="user-mini-avatar" id="sidebar-avatar">👤</div>
+                    <div class="user-mini-info">
+                        <span id="sidebar-name">المستخدم</span>
+                        <small id="sidebar-role">طالب</small>
+                    </div>
+                </div>
+                <button class="logout-btn" id="logout-btn" title="تسجيل الخروج">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ══════════ MAIN ══════════ -->
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-toggle" id="mobile-toggle"><i class="fas fa-bars"></i></button>
+                    <h1 class="page-title">📝 تسليم الواجبات</h1>
+                </div>
+                <div class="header-right">
+                    <div class="header-user">
+                        <span id="header-name">مرحباً!</span>
+                        <div class="header-avatar" id="header-avatar">👤</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content-area">
+
+                <!-- Role Banner -->
+                <div class="role-banner student" id="role-banner-student">
+                    <i class="fas fa-user-graduate"></i>
+                    <div>
+                        <div>أنت مسجّل كـ <strong>طالب</strong></div>
+                        <div style="font-size:0.82rem;font-weight:400;margin-top:2px;">يمكنك رؤية الواجبات المُرسلة إليك وتسليم إجاباتك.</div>
+                    </div>
+                </div>
+
+                <!-- Stats Bar -->
+                <div class="stats-bar" id="stats-bar">
+                    <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-info">
+                            <div class="val" id="stat-total">0</div>
+                            <div class="lbl">إجمالي الواجبات</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-info">
+                            <div class="val" id="stat-pending">0</div>
+                            <div class="lbl">بانتظار التسليم</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <div class="val" id="stat-submitted">0</div>
+                            <div class="lbl">تم التسليم</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h2><i class="fas fa-file-alt"></i> واجباتي</h2>
+                </div>
+
+                <!-- Toolbar -->
+                <div class="toolbar">
+                    <input type="text" class="search-box" id="search-box" placeholder="🔍 ابحث عن واجب...">
+                    <button class="filter-btn active" data-filter="all" id="filter-all">الكل</button>
+                    <button class="filter-btn" data-filter="pending" id="filter-pending">⏳ معلق</button>
+                    <button class="filter-btn" data-filter="submitted" id="filter-submitted">✅ مُسلَّم</button>
+                    <button class="filter-btn" data-filter="overdue" id="filter-overdue">🔴 منتهي</button>
+                </div>
+
+                <!-- Assignments List -->
+                <div class="assignments-grid" id="assignments-grid"></div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ══════════ MODAL: SUBMIT ASSIGNMENT ══════════ -->
+    <div class="modal-overlay" id="submit-modal">
+        <div class="modal-card">
+            <h3><i class="fas fa-paper-plane"></i> تسليم الواجب</h3>
+
+            <div style="background:var(--accent-bg);border-radius:12px;padding:14px;margin-bottom:20px;border:1px solid var(--primary-light);">
+                <div style="font-weight:700;" id="submit-assign-title">عنوان الواجب</div>
+                <div style="font-size:0.82rem;color:var(--text-muted);margin-top:4px;" id="submit-assign-due"></div>
+            </div>
+
+            <div class="form-group">
+                <label>إجابتك / ملاحظاتك</label>
+                <textarea id="submit-answer" rows="4" placeholder="اكتب إجابتك أو ملاحظاتك هنا..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>رفع ملف (اختياري)</label>
+                <div class="file-drop-zone" id="file-drop-zone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>اسحب الملف هنا أو انقر للاختيار</p>
+                    <p style="font-size:0.78rem;margin-top:4px;">(PDF، Word، صور)</p>
+                    <input type="file" id="submit-file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                    <div class="file-chosen" id="file-chosen-name" style="display:none;"></div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancel-submit-btn">إلغاء</button>
+                <button class="btn-primary" id="confirm-submit-btn"><i class="fas fa-check"></i> تأكيد التسليم</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // ══════════════════════════════════════════════
+        //  Helpers
+        // ══════════════════════════════════════════════
+        function getLS(key, fallback) {
+            try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
+            catch { return fallback; }
+        }
+        function setLS(key, val) {
+            try { localStorage.setItem(key, JSON.stringify(val)); } catch { }
+        }
+
+        function showToast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = `toast ${type}`;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3200);
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '—';
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function dueBadge(dateStr) {
+            if (!dateStr) return '';
+            const due = new Date(dateStr);
+            const now = new Date();
+            const diff = Math.ceil((due - now) / (1000 * 60 * 60 * 24));
+            let cls = 'tag-due', label = `📅 ${formatDate(dateStr)}`;
+            if (diff < 0) { cls = 'tag-due overdue'; label = `⚠️ فات الموعد`; }
+            else if (diff <= 3) { cls = 'tag-due soon'; label = `⏰ باقي ${diff} يوم`; }
+            return `<span class="assign-tag ${cls}">${label}</span>`;
+        }
+
+        function priorityBadge(p) {
+            if (p === 'urgent') return `<span class="assign-tag tag-urgent">🔴 عاجل</span>`;
+            if (p === 'low') return `<span class="assign-tag tag-low">⚪ منخفض</span>`;
+            return `<span class="assign-tag tag-normal">🟢 عادي</span>`;
+        }
+
+        // ══════════════════════════════════════════════
+        //  State
+        // ══════════════════════════════════════════════
+        let currentUser = null;
+        let assignments = [];
+        let submissions = {};
+        let currentFilter = 'all';
+        let submitTargetId = null;
+
+        // ══════════════════════════════════════════════
+        //  Bootstrap
+        // ══════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', () => {
+            // Auth guard
+            const rawUser = localStorage.getItem('enjaz_user');
+            const token = localStorage.getItem('enjaz_token');
+            if (!rawUser || !token) { location.href = 'login.html'; return; }
+
+            currentUser = JSON.parse(rawUser);
+
+            // UI init
+            document.getElementById('sidebar-name').textContent = currentUser.name;
+            document.getElementById('sidebar-avatar').textContent = currentUser.name.charAt(0).toUpperCase();
+            document.getElementById('header-name').textContent = currentUser.name;
+            document.getElementById('header-avatar').textContent = currentUser.name.charAt(0).toUpperCase();
+            document.getElementById('sidebar-role').textContent = 'طالب';
+
+            // Theme
+            const profile = getLS('enjaz_profile', { theme: 'green' });
+            document.body.className = `theme-${profile.theme || 'green'}`;
+
+            // Load data
+            assignments = getLS('enjaz_assignments', []);
+            submissions = getLS('enjaz_submissions', {});
+
+            renderAll();
+            bindEvents();
+        });
+
+        // ══════════════════════════════════════════════
+        //  Render
+        // ══════════════════════════════════════════════
+        function renderAll() {
+            updateStats();
+            renderGrid();
+        }
+
+        function getAssignStatus(a) {
+            const due = new Date(a.due);
+            const now = new Date();
+            const sub = submissions[a.id];
+            const submittedByMe = sub && sub.userId === currentUser.id;
+            const isOverdue = due < now;
+
+            if (submittedByMe) return 'submitted';
+            if (isOverdue) return 'overdue';
+            return 'pending';
+        }
+
+        function updateStats() {
+            const total = assignments.length;
+            let pending = 0, submitted = 0;
+            assignments.forEach(a => {
+                const st = getAssignStatus(a);
+                if (st === 'pending') pending++;
+                else if (st === 'submitted') submitted++;
+            });
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-pending').textContent = pending;
+            document.getElementById('stat-submitted').textContent = submitted;
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('assignments-grid');
+            const searchQuery = document.getElementById('search-box').value.toLowerCase();
+
+            let list = assignments.filter(a => {
+                const status = getAssignStatus(a);
+                const matchFilter = currentFilter === 'all' || status === currentFilter;
+                const matchSearch = !searchQuery ||
+                    a.title.toLowerCase().includes(searchQuery) ||
+                    a.subject.toLowerCase().includes(searchQuery) ||
+                    a.desc.toLowerCase().includes(searchQuery);
+                return matchFilter && matchSearch;
+            });
+
+            if (list.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <h3>لا توجد واجبات هنا</h3>
+                        <p>لم يُرسل إليك الدكتور أي واجب بعد.</p>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = list.map(a => renderCard(a)).join('');
+        }
+
+        function renderCard(a) {
+            const status = getAssignStatus(a);
+            const sub = submissions[a.id];
+            const submittedByMe = sub && sub.userId === currentUser.id;
+
+            const icons = { برمجة: '💻', شبكات: '🌐', 'قواعد البيانات': '🗄️', 'ذكاء اصطناعي': '🤖', رياضيات: '📐', فيزياء: '⚛️' };
+            const icon = icons[a.subject] || '📋';
+
+            let actionsHTML = '';
+            if (submittedByMe) {
+                actionsHTML = `<button class="submit-btn submitted"><i class="fas fa-check-circle"></i> تم التسليم</button>`;
+            } else {
+                const expired = status === 'overdue';
+                actionsHTML = expired
+                    ? `<button class="submit-btn pending" style="background:#9ca3af;cursor:not-allowed;" disabled><i class="fas fa-lock"></i> انتهى الموعد</button>`
+                    : `<button class="submit-btn pending" onclick="openSubmitModal('${a.id}')"><i class="fas fa-paper-plane"></i> تسليم الواجب</button>`;
+            }
+
+            const gradeTag = a.grade ? `<span class="assign-tag tag-from">🏆 ${a.grade} درجة</span>` : '';
+            const notesTag = a.notes ? `<span class="assign-tag" style="background:#f0f9ff;color:#0369a1;border:1px solid #bae6fd;"><i class="fas fa-info-circle"></i> ${a.notes}</span>` : '';
+            const doctorTag = `<span class="assign-tag tag-from"><i class="fas fa-user-tie"></i> ${a.doctorName || 'الدكتور'}</span>`;
+
+            return `
+            <div class="assignment-card" id="card-${a.id}">
+                <div class="assign-icon">${icon}</div>
+                <div class="assign-body">
+                    <div class="assign-title">${a.title}</div>
+                    <div class="assign-desc">${a.desc}</div>
+                    <div class="assign-meta">
+                        ${a.subject ? `<span class="assign-tag tag-subject"><i class="fas fa-book"></i> ${a.subject}</span>` : ''}
+                        ${dueBadge(a.due)}
+                        ${priorityBadge(a.priority)}
+                        ${gradeTag}
+                        ${doctorTag}
+                        ${notesTag}
+                    </div>
+                </div>
+                <div class="assign-actions">${actionsHTML}</div>
+            </div>`;
+        }
+
+        // ══════════════════════════════════════════════
+        //  Student: Submit Assignment
+        // ══════════════════════════════════════════════
+        window.openSubmitModal = function (id) {
+            submitTargetId = id;
+            const a = assignments.find(x => x.id === id);
+            document.getElementById('submit-assign-title').textContent = a?.title;
+            document.getElementById('submit-assign-due').textContent = `⏰ تاريخ التسليم: ${formatDate(a?.due)}`;
+            document.getElementById('submit-answer').value = '';
+            document.getElementById('file-chosen-name').style.display = 'none';
+            document.getElementById('file-chosen-name').textContent = '';
+            document.getElementById('submit-modal').classList.add('open');
+        };
+
+        function submitAssignment() {
+            const answer = document.getElementById('submit-answer').value.trim();
+            const fileInput = document.getElementById('submit-file');
+            const fileName = fileInput.files[0]?.name || '';
+
+            if (!answer && !fileName) {
+                showToast('⚠️ يرجى كتابة إجابة أو رفع ملف', 'error');
+                return;
+            }
+
+            const record = {
+                userId: currentUser.id,
+                userName: currentUser.name,
+                answer,
+                fileName,
+                time: new Date().toLocaleString('ar-EG')
+            };
+
+            // Store submission
+            submissions[submitTargetId] = record;
+            setLS('enjaz_submissions', submissions);
+
+            document.getElementById('submit-modal').classList.remove('open');
+            showToast('🎉 تم تسليم الواجب بنجاح!');
+            renderAll();
+        }
+
+        // ══════════════════════════════════════════════
+        //  Bind Events
+        // ══════════════════════════════════════════════
+        function bindEvents() {
+            // Mobile toggle
+            document.getElementById('mobile-toggle').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('open');
+                document.getElementById('sidebar-overlay').classList.toggle('active');
+            });
+            document.getElementById('sidebar-overlay').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebar-overlay').classList.remove('active');
+            });
+
+            // Logout
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('enjaz_user');
+                localStorage.removeItem('enjaz_token');
+                location.href = 'login.html';
+            });
+
+            // Search
+            document.getElementById('search-box').addEventListener('input', renderGrid);
+
+            // Filters
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.filter;
+                    renderGrid();
+                });
+            });
+
+            // Submit modal
+            document.getElementById('cancel-submit-btn').addEventListener('click', () => {
+                document.getElementById('submit-modal').classList.remove('open');
+            });
+            document.getElementById('confirm-submit-btn').addEventListener('click', submitAssignment);
+            document.getElementById('submit-modal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('submit-modal'))
+                    document.getElementById('submit-modal').classList.remove('open');
+            });
+
+            // File drop zone
+            const dropZone = document.getElementById('file-drop-zone');
+            const fileInput = document.getElementById('submit-file');
+
+            dropZone.addEventListener('click', () => fileInput.click());
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+            dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect();
+                }
+            });
+            fileInput.addEventListener('change', handleFileSelect);
+
+            function handleFileSelect() {
+                const fileName = fileInput.files[0]?.name;
+                if (fileName) {
+                    document.getElementById('file-chosen-name').textContent = `📎 ${fileName}`;
+                    document.getElementById('file-chosen-name').style.display = 'block';
+                }
+            }
+        }
+
+        // تحديث التنقل النشط
+        function updateActiveNav() {
+            const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'Dashboard';
+            document.querySelectorAll('.nav-item').forEach(item => {
+                const itemPage = item.getAttribute('href')?.replace('.html', '');
+                if (itemPage === currentPage || (currentPage === '' && itemPage === 'Dashboard')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', updateActiveNav);
+    </script>
+</body>
+
+</html>
